@@ -10,12 +10,12 @@ connectDB();    // Connect Database
 app.use(express.json({ extended:false }));    // parse json objects in requests - this is the middleware formerly known as body-parser
 
 //Routing
-// app.get('/', (req, res) => res.send('API Running')); // When the server receives a GET request from a url ending with /, send a response with data content 'API Running'
+app.get('/', (req, res) => res.send('API Running')); // When the server receives a GET request from a url ending with /, send a response with data content 'API Running'
 
 app.use('/api/users', require('./routes/api/users')); //define routes
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/profile'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/dogs', require('./routes/api/dogs'));
+// app.use('/api/requests', require('./routes/api/posts'));
 
 if(process.env.NODE_ENV === 'production') {    // Serve static assets in production
     app.use(express.static('client/build')); // Set static folder

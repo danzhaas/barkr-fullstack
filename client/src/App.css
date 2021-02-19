@@ -27,6 +27,11 @@ h1 {
   background-color:#927737;
 }
 
+.flex-row {
+  display:flex;
+  flex-direction: row;
+}
+
 .jumbotron {
   background-color:#FFC107;
   margin:0;

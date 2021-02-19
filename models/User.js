@@ -34,36 +34,60 @@ const UserSchema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'dog'
             }
-        ],
-        favorited: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'dog'
-            }
         ]
+        // favorited: [
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: 'dog'
+        //     }
+        // ]
     },
-    friends: [
-        {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
-            },
-            permissions: String
-        }
-    ],
-    messages: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'message'
-        }
-    ],
+    // friends: [
+    //     {
+    //         user: {
+    //             type: mongoose.Schema.Types.ObjectId,
+    //             ref: 'user'
+    //         },
+    //         permissions: String
+    //     }
+    // ],
+    // messages: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'message'
+    //     }
+    // ],
     contacts: {
+        owner: {
+            displayName:{
+                type:Boolean,
+                default:false
+            },
+            displayAddress:{
+                type:Boolean,
+                default:false
+            },
+            address:String,
+            displayPhone:{
+                type:Boolean,
+                default:false
+            },
+            phone:String
+        },
         vet: {
+            vetDisplayed:{
+                type:Boolean,
+                default:false
+            },
             businessName:String,
             address:String,
             phone:String
         },
         emergencyVet: {
+            vetDisplayed:{
+                type:Boolean,
+                default:false
+            },
             businessName:String,
             address:String,
             phone:String
@@ -75,22 +99,6 @@ const UserSchema = new mongoose.Schema({
                 type:Boolean,
                 default:false
             },
-            ownerNameDisplayed:{
-                type:Boolean,
-                default:false
-            },
-            ownerAddressDisplayed:{
-                type:Boolean,
-                default:false
-            },
-            ownerPhoneDisplayed:{
-                type:Boolean,
-                default:false
-            },
-            vetsDisplayed:{
-                type:Boolean,
-                default:false
-            }
         }
     ],
     dateRegistered: {

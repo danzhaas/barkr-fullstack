@@ -1,20 +1,20 @@
 const express = require ('express');
 const router = express.Router();
-const gravatar = require ('gravatar');  // user avatar database
 const bcrypt = require('bcryptjs'); // encryption package
+const auth = require ('../../middleware/auth');
 const jwt = require('jsonwebtoken');    // js web token
 const config = require('config');   //allows us to access other json files 
 const { check, validationResult } = require('express-validator'); //the methods for request validation
 
 const User = require('../../models/User');
 
-// @route   POST api/users
+// @route   POST api/users/
 // @desc    Register route
 // @access  Public
 router.post(
     '/',    // route
     [   // second argument is an array in which fields are checked against validators
-        check ('name', 'Name is required')
+        check ('username', 'Username is required')
             .not()
             .isEmpty(),
         check ('email', 'Please include a valid email')
@@ -28,7 +28,7 @@ router.post(
             return res.status(400).json({ errors: errors.array() })  // code 400: bad request, in this case validation failed
         }
             
-        const { name, email, password } = req.body; //deconstruct user fields from the request object
+        const { username, email, password, name } = req.body; //deconstruct user fields from the request object
 
         try {
             
@@ -36,18 +36,14 @@ router.post(
             if (user) {  // if user exists, respond with error; 
                 return res.status(400).json({ errors: [ { msg: 'User already exists' }] });
             }
-            
-            const avatar = gravatar.url(email, {  // get user's gravatar registered to their email; 
-                s: '200',   //size in px
-                r: 'pg',    //rating.  pg "may contain rude gestures, provocatively dressed individuals, the lesser swear words, or mild violence."
-                d: 'mm'     // default: mm stands for a default "mystery man"
-            })
 
             user = new User({   //create a new User document in the DB containing the posted
-                name,
+                username,
                 email,
-                avatar,
-                password    // note: unencrypted.  This needs to be fixed right away.
+                password,    // note: unencrypted.  This needs to be fixed right away.
+                personal: {
+                    name
+                }
             })
             
             const salt = await bcrypt.genSalt(10); // Encrypt password part 1: generate salt with 10 digits; 
@@ -76,5 +72,30 @@ router.post(
         };
     }
 );
+
+
+// @route   GET api/users/:username
+// @desc    Find another user
+// @access  Public
+router.get('/:id', auth, async (req, res) => { // note auth middleware and async because we're making a call to the database
+    try {
+        const user = await User.findById(req.params.id)  // jwt authorization happens here: the findById method calls req.user we declared in the auth middleware
+        .select('-password');  // query for the above user will exclude the password field
+        res.json(user); // response inludes the object returned by user document query
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route   PUT api/users/:id
+// @desc    Update user (ex. add dogs, add/remove favorite dogs, update address, etc.)
+// @access  Private
+
+// @route   DELETE api/users/:id
+// @desc    Delete user
+// @access  Private
+
+
 
 module.exports = router;

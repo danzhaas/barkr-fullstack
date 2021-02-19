@@ -10,15 +10,10 @@ const DogSchema = new mongoose.Schema({
             type: String,
             required:true
         },
-        sex: {
-            type:String,
-        },
-        breed:{
-            type:String,
-        },
-        yearBorn:{
-            type:String,
-        }
+        sex: String,
+        breed:String,
+        yearBorn:Number,
+        from:String
     },
     bio: {
         type: String,
@@ -33,15 +28,15 @@ const DogSchema = new mongoose.Schema({
             data: Buffer,
             contentType: String
         },
-        album:[
-            {
-                photo: {
-                    data: Buffer,
-                    contentType: String
-                },
-                caption:String
-            }
-        ]
+        // album:[
+        //     {
+        //         photo: {
+        //             data: Buffer,
+        //             contentType: String
+        //         },
+        //         caption:String
+        //     }
+        // ]
     },
     commands:[
         {
@@ -53,33 +48,23 @@ const DogSchema = new mongoose.Schema({
                 data: Buffer,
                 contentType: String
             },
-            description: {
-                type:String
-            },
-            dateLearned: {
-                type: Date
-            }
+            description:String,
+            dateLearned:Date
         }
     ],
     routine:[
         {
-            detail: {
-                type: String
-            }
+            detail: String
         }
     ],
     supplies:[
         {
-            detail: {
-                type: String
-            }
+            detail: String
         }
     ],
     notes:[
         {
-            detail: {
-                type: String
-            }
+            detail: String
         }
     ],
     dateRegistered: {

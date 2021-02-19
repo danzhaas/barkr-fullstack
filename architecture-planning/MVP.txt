@@ -1,1 +1,12 @@
-What is the MVP for this app?
+What is not MVP for this app?
+
+Dog model:
+photos.album
+
+User model: 
+dogs.favorited
+friends
+messages
+settings
+
+Requests

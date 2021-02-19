@@ -2,7 +2,6 @@ const express = require ('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require ('../../middleware/auth');
-
 const Post = require('../../models/Post');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -188,15 +187,6 @@ router.post('/comment/:id',
         }
     }
 );
-
-
-// ██╗  ██╗███████╗██████╗ ███████╗
-// ██║  ██║██╔════╝██╔══██╗██╔════╝
-// ███████║█████╗  ██████╔╝█████╗  
-// ██╔══██║██╔══╝  ██╔══██╗██╔══╝  
-// ██║  ██║███████╗██║  ██║███████╗
-// ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝
-                                
 
 // @route   POST api/posts/comment/anon/:id
 // @desc    Comment on a post as anon
