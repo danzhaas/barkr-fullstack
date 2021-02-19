@@ -4,3 +4,6 @@ The Barkr app is a dog-centered social network.  I created a prototype with Boot
 
 Planning begins here:
 https://trello.com/b/QUUIq8RR/barkr-integration
+
+Info on how to upload and retriece images with MongoDB: 
+https://www.geeksforgeeks.org/upload-and-retrieve-image-on-mongodb-using-mongoose/

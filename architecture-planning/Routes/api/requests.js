@@ -1,4 +1,4 @@
-// Related to User Messages / Inbox
+// Note: @routes are not written thoughtfully at this stage.
 
 // @route   GET api/user/:username/:message_id
 // @desc    Check message

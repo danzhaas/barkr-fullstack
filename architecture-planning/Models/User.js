@@ -27,11 +27,15 @@
 //          {
 //              "_id":"5118916351"              ObjectId
 //          }
-//      ]
+//      ],
+//      settings: [ 
+//          {
 //      "privateSwitch":true                     boolean
 //      "ownerNameSwitch":"",                    boolean
 //      "ownerAddressSwitch":"",                 boolean
-//      "ownerPhoneSwitch": ""                   boolean
+//      "ownerPhoneSwitch": "" 
+//          }
+//      ]
 //      "ownerMap":"www.google.com/maps/..."     string
 //      "contactVetName":"PAC Animal Hospital",  string
 //      "contactVetAddress":"123 Test Street",   string
