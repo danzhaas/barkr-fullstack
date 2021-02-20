@@ -311,7 +311,7 @@ function UserSettingsComponent(props) {
                 console.log(context.chosenUser);
                 return (
                     <>
-                        <UserHeader pageName="Settings for" dogName="Username" />
+                        <UserHeader pageName="Settings for" userName={context.chosenUser.name} />
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 m-auto">

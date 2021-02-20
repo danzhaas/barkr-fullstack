@@ -9,7 +9,7 @@ import Autosuggest from 'react-autosuggest';
 import dogBreeds from 'dog-breeds';
 
 const DogFields = (props) => {
-    const [activeTab, setActiveTab] = useState('2');
+    const [activeTab, setActiveTab] = useState('1');
 
     const toggle = tab => {
         if (activeTab !== tab) setActiveTab(tab);
@@ -39,6 +39,14 @@ const DogFields = (props) => {
                         className={classnames({ active: activeTab === '3' })}
                         onClick={() => { toggle('3'); }}
                     >
+                        Adventure
+                    </NavLink>
+                </NavItem>
+                <NavItem id="barkr-tab">
+                    <NavLink
+                        className={classnames({ active: activeTab === '4' })}
+                        onClick={() => { toggle('4'); }}
+                    >
                         Care
                     </NavLink>
                 </NavItem>
@@ -62,6 +70,13 @@ const DogFields = (props) => {
                 <TabPane tabId="3">
                     <Row className="bg-white border-0">
                         <Col sm="12">
+                            <AdventureForm context={props.context} />
+                        </Col>
+                    </Row>
+                </TabPane>
+                <TabPane tabId="4">
+                    <Row className="bg-white border-0">
+                        <Col sm="12">
                             <CareForm />
                         </Col>
                     </Row>
@@ -71,12 +86,20 @@ const DogFields = (props) => {
     );
 }
 
+
+// ██╗  ██╗ ██████╗ ███╗   ███╗███████╗
+// ██║  ██║██╔═══██╗████╗ ████║██╔════╝
+// ███████║██║   ██║██╔████╔██║█████╗  
+// ██╔══██║██║   ██║██║╚██╔╝██║██╔══╝  
+// ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗
+// ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
+                                    
 function HomeForm(props) {
 
     const dogsList = dogBreeds.all;
 
     return (
-        <div>
+        <div className="bg-white border-0">
             <Form>
                 <FormGroup className="bg-white border-0" row>
                     <Label for="name" sm={3}>Name</Label>
@@ -132,6 +155,15 @@ function HomeForm(props) {
     )
 }
 
+
+
+// ███████╗██████╗ ███████╗ █████╗ ██╗  ██╗
+// ██╔════╝██╔══██╗██╔════╝██╔══██╗██║ ██╔╝
+// ███████╗██████╔╝█████╗  ███████║█████╔╝ 
+// ╚════██║██╔═══╝ ██╔══╝  ██╔══██║██╔═██╗ 
+// ███████║██║     ███████╗██║  ██║██║  ██╗
+// ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+                                        
 const CommandsList = (props) => {
 
     return(
@@ -207,7 +239,6 @@ function SpeakForm(props) {
                     <br /><br />
                     <Button className="bg-success">Add/Update Command</Button>{' '}
                     <Button className="bg-danger">Delete Command</Button>
-
                 </Form>
             </div>
             
@@ -489,14 +520,47 @@ function SpeakForm(props) {
                     <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
                 </FormGroup>
             </Form>
-            <ButtonGroup>
-                <Button>Basic Info</Button>
-                <Button>Speak</Button>
-                <Button>Care</Button>
-            </ButtonGroup>
         </Row>
     )
 }
+
+
+//  █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
+// ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║   ██║██╔══██╗██╔════╝
+// ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝█████╗  
+// ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗██╔══╝  
+// ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
+// ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+
+function AdventureForm(props) {
+
+    return (
+        <div className="bg-white border-0">
+            <Form>
+                <FormGroup row>
+                    <Label for="exampleFile" sm={3}>File</Label>
+                    <Col sm={9}>
+                        <Input type="file" name="file" id="exampleFile" />
+                        <FormText color="muted">
+                            This is some placeholder block-level help text for the above input.
+                            It's a bit lighter and easily wraps to a new line.
+                        </FormText>
+                    </Col>
+                </FormGroup>
+            </Form>
+        </div>
+    )
+}
+
+
+//  ██████╗ █████╗ ██████╗ ███████╗
+// ██╔════╝██╔══██╗██╔══██╗██╔════╝
+// ██║     ███████║██████╔╝█████╗  
+// ██║     ██╔══██║██╔══██╗██╔══╝  
+// ╚██████╗██║  ██║██║  ██║███████╗
+//  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+
 
 function CareForm(props) {
 
@@ -525,10 +589,11 @@ function FormDogComponent(props) {
             {context => {
                 return (
                     <>
-                        <UserHeader pageName="My Dog" />
+                        <UserHeader pageName="My Dog"/>
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 m-auto">
+                                    <h1 className="text-primary" >{context.chosenDog.name}</h1>
                                     <DogFields context={context} />
                                     <br /><br />
                                     <Button className="bg-success">Submit Changes</Button>

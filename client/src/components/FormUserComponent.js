@@ -37,15 +37,14 @@ function FormUserComponent(props) {
     return (
         <Consumer>
             {context => {
-                console.log("chosen user", context.chosenUser);
+
                 return (
                     <>
-                        <UserHeader pageName="My Homepage" />
+                        <UserHeader pageName="Homepage for" userName={context.chosenUser.name} />
                         <div className="container">
                             <div className="row">
                                 <div className="col-12 m-auto">
-                                    <h1>Welcome Back <span className='text-light'>{context.chosenUser.name}</span></h1>
-                                    <h2>Update My Dogs</h2>
+                                    <h1>Update My Dogs</h1>
                                     <ButtonGroup vertical>
                                         <DogList 
                                             context={context} 
@@ -62,9 +61,10 @@ function FormUserComponent(props) {
                                     </ButtonGroup>
                                 </div>
                             </div>
+
                             <div className="row">
                                 <div className="col-12 m-auto">
-                                    <h2>Visit Followed Dogs</h2>
+                                    <h1>Visit Followed Dogs</h1>
                                     <ButtonGroup vertical>
                                     <DogList 
                                         context={context} 
@@ -73,12 +73,13 @@ function FormUserComponent(props) {
                                     </ButtonGroup>
                                 </div>
                             </div>
+
                             <div className="row">
                                 <div className="col-12 m-auto">
                                     <ButtonGroup vertical>
                                         <div className="w-100">
                                             <Button className="bg-white w-100" >
-                                                <Link className="d-flex flex-row" to="/user/:userId/settings">                                                    
+                                                <Link className="d-flex flex-row" to={`/user/${context.userId}/settings`} >
                                                     <h1 className="my-auto ml-2">My Settings</h1>
                                                 </Link>
                                             </Button>
@@ -86,6 +87,7 @@ function FormUserComponent(props) {
                                     </ButtonGroup>
                                 </div>
                             </div>
+
                         </div>
                         <Footer />
                     </>

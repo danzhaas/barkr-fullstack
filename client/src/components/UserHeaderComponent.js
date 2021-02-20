@@ -53,19 +53,19 @@ class MeetHeader extends Component {
                                             </NavItem>
                                             <NavItem>
                                                 <NavLink className="nav-link d-flex flex-row btn btn-warning" to={`/user/${context.userId}/:dogId`} >
-                                                    <i className="nav-icon fa fa-comment fa-2x"></i>
+                                                    <i className="fa fa-dog fa-2x "></i>
                                                     <h5>My Dogs</h5>
                                                 </NavLink>
                                             </NavItem>
-                                            <NavItem>
+                                            {/* <NavItem>
                                                 <NavLink className="nav-link d-flex flex-row btn btn-warning" to={`/user/${context.userId}/:dogId`} >
                                                     <i className="nav-icon fa fa-tree fa-2x align-self-center"></i>
                                                     <h5>Followed Dogs</h5>
                                                 </NavLink>
-                                            </NavItem>
+                                            </NavItem> */}
                                             <NavItem>
                                                 <NavLink className="nav-link d-flex flex-row btn btn-warning" to={`/user/${context.userId}/settings`} >
-                                                    <i className="nav-icon fa fa-heart fa-2x"></i>
+                                                    <i class="nav-icon fas fa-user-cog fa-2x"></i>
                                                     <h5>My Settings</h5>
                                                 </NavLink>
                                             </NavItem>
@@ -82,7 +82,7 @@ class MeetHeader extends Component {
                             </div>
                             <div className="row border-0 bg-warning pt-1">
                                 <div className="col-12">
-                                    <h1 id="page-title" className="display-4 mb-0">{this.props.pageName}&nbsp;<span className="text-primary">{this.props.dogName}</span></h1>
+                                    <h1 id="page-title" className="display-4 mb-0">{this.props.pageName}&nbsp;<span className="text-primary">{this.props.userName}</span></h1>
                                 </div>
                             </div>
                         </div>

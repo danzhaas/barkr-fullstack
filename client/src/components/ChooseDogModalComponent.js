@@ -23,7 +23,9 @@ export function DogChooserModal(props) {
     
     return (
         <Modal isOpen={modal} toggle={toggleModal} >
-            <ModalHeader toggle={toggleModal}>Choose a Dog</ModalHeader>
+            <ModalHeader toggle={toggleModal}>
+                <h1>Choose a Dog</h1>
+            </ModalHeader>
             <ModalBody>
                 <ButtonGroup vertical>
                     {dogList}
