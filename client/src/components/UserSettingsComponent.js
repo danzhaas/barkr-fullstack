@@ -2,11 +2,25 @@ import React, { useState } from 'react';
 import {
     Card, CardBody, CardTitle, CardText, Row, Button, Form, FormGroup, Label, Input, Col, CustomInput, NavItem, NavLink, TabPane, Nav, TabContent
 } from 'reactstrap';
+import axios from 'axios';
 import classnames from 'classnames';
-import Header from './HeaderComponent';
+import UserHeader from './UserHeaderComponent';
 import {Consumer} from "./configContext";
 import Footer from './FooterComponent';
 
+
+const ContactTab = ({ activeTab, toggle, tabNo, title }) => {
+    return (
+        <NavItem id="barkr-tab">
+                    <NavLink
+                        className={classnames({ active: activeTab === tabNo })}
+                        onClick={() => { toggle(tabNo); }}
+                    >
+                        {title}
+                    </NavLink>
+                </NavItem>
+    )
+}
 
 const ContactsCard = ({ name, address, phone }) => {
     
@@ -43,53 +57,47 @@ const ContactsTabs = (props) => {
     return (
         <div>
             <Nav tabs>
-                <NavItem id="barkr-tab">
-                    <NavLink
-                        className={classnames({ active: activeTab === '1' })}
-                        onClick={() => { toggle('1'); }}
-                    >
-                        Owner
-                    </NavLink>
-                </NavItem>
-                <NavItem id="barkr-tab">
-                    <NavLink
-                        className={classnames({ active: activeTab === '2' })}
-                        onClick={() => { toggle('2'); }}
-                    >
-                        Primary Vet
-                    </NavLink>
-                </NavItem>
-                <NavItem id="barkr-tab">
-                    <NavLink
-                        className={classnames({ active: activeTab === '3' })}
-                        onClick={() => { toggle('3'); }}
-                    >
-                        Emergency Vet
-                    </NavLink>
-                </NavItem>
+                <ContactTab activeTab={activeTab} toggle={toggle} tabNo="1" title="Owner" />
+                <ContactTab activeTab={activeTab} toggle={toggle} tabNo="2" title="Vet" />
+                <ContactTab activeTab={activeTab} toggle={toggle} tabNo="3" title="Emergency Vet" />
             </Nav>
 
             <TabContent activeTab={activeTab}>
                 
                 {/* Owner Tab */}
                 <TabPane tabId="1">
-                    <Row className="bg-white border-0">
+                <Row className="bg-white border-0">
                         <Col sm="12">
+                            <p>Your Contact Card</p>
                             <FormGroup>
-                                <Label for="exampleCheckbox">Your Contact Card</Label>
-                                <div className="d-flex ">
-                                    <div className="col col-md-6 d-flex flex-column justify-content-around">
-                                        <CustomInput type="switch" id="contactOwnerDisplaySwitch" name="contactOwnerDisplaySwitch" label="Display this tab to other users?" />
-                                        <CustomInput type="switch" id="contactOwnerNameSwitch" name="contactOwnerNameSwitch" label="Display your name?" />
-                                        <CustomInput type="switch" id="contactOwnerAddressSwitch" name="contactOwnerAddressSwitch" label="Display your address?" />
-                                        <CustomInput type="switch" id="contactOwnerPhoneSwitch" name="contactOwnerPhoneSwitch" label="Display your phone number?" />
-                                    </div>
-                                    <div className="col col-md-6">
-                                        <ContactsCard name="Owner Name" address="Owner Address" phone="4105555555" />
-                                    </div>
-                                </div>
+                            <CustomInput type="switch" id="contactOwnerDisplaySwitch" name="contactOwnerDisplaySwitch" label="Display this tab to other users?" checked />
                             </FormGroup>
                         </Col>
+                    </Row>
+                    <Row className="bg-white border-0">
+                        <Col sm="6">
+                            <FormGroup className="bg-white border-0" row>
+                                <Label for="ownerName" sm={2}>Name</Label>
+                                <Col sm={10}>
+                                    Username
+                                </Col>
+                            </FormGroup>
+                            <FormGroup className="bg-white border-0" row>
+                                <Label for="ownerAddress" sm={2}>Address</Label>
+                                <Col sm={10}>
+                                    <Input type="text" name="ownerAddress" id="ownerAddress" placeholder="123 Fake St" />
+                                </Col>
+                            </FormGroup>
+                            <FormGroup className="bg-white border-0" row>
+                                <Label for="ownerPhone" sm={2}>Phone</Label>
+                                <Col sm={10}>
+                                    <Input type="text" name="ownerPhone" id="ownerPhone" placeholder="8888888888" />
+                                </Col>
+                            </FormGroup>
+                        </Col>
+                        <div className="col col-md-6">
+                            <ContactsCard name="Owner Name" address="Owner Address" phone="4105555555" />
+                        </div>
                     </Row>
                 </TabPane>
 
@@ -172,18 +180,76 @@ const ContactsTabs = (props) => {
     );
 }
 
+
 function UserForm(props) {
+    
+    // async function submitUserSettings( userId, formData ) {
+    //     const config = {
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }
+
+    //     try {
+    //         const res = await axios.put(`/api/users/${userId}`, formData, config);
+    //     } catch (err) {
+    //         const errors = err.response.data.errors;    // errors from the data in the response declared errors
+    
+    //         if(errors) {    // if there are errors 
+    //             errors.forEach(error => alert(error.msg))    // for eac
+    //         }
+    //     }
+    // }
+
+    // document.querySelector('#userForm').addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //     submitUserSettings();
+    // })
+
+    const [ formValues, updateValues ] = useState(
+        // id,
+        // username,
+        // email,
+        // personal: {
+        //   name,
+        //   ZIP   
+        // },
+        // private,
+        // contacts: {
+        //   owner: {
+        //      displayed,
+        //      address,
+        //      phone
+        //   },
+        //   vet: {
+        //      displayed,
+        //      businessName,
+        //      address,
+        //      phone
+        //   },
+        //   emergencyVet: {
+        //      displayed,
+        //      businessName,
+        //      address,
+        //      phone
+        //   }
+        // },
+        // dateRegistered
+    )
+    
     return (
         <>
-            <Form>
+            <Form id="userForm" >
 
                 <h2>Login</h2>
+                {/* Email */}
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
                     <Col sm={10}>
                         <Input type="email" name="email" id="email" placeholder="your@email.com" />
                     </Col>
                 </FormGroup>
+                {/* Change Password */}
                 <FormGroup row>
                     <Label for="password1" sm={2}>Change Password</Label>
                     <Col sm={10}>
@@ -198,12 +264,14 @@ function UserForm(props) {
                 </FormGroup>
 
                 <h2>Personal Info</h2>
+                {/* Name */}
                 <FormGroup row>
-                    <Label for="name" sm={2}>Name</Label>
+                    <Label for="aName" sm={2}>Name</Label>
                     <Col sm={10}>
-                        <Input type="text" name="name" id="name" placeholder="First Last" />
+                        <Input type="text" name="aName" id="aName" placeholder="First Last" />
                     </Col>
                 </FormGroup>
+                {/* ZIP */}
                 <FormGroup row>
                     <div sm={2}>
                         <Label for="ZIP" sm={12}>ZIP Code - Optional</Label>
@@ -213,14 +281,9 @@ function UserForm(props) {
                         <Input type="text" name="ZIP" id="ZIP" placeholder="90210" />
                     </Col>
                 </FormGroup>
-                <FormGroup row>
-                    <Label for="phone" sm={2}>Phone (Optional)</Label>
-                    <Col sm={10}>
-                        <Input type="text" name="phone" id="phone" placeholder="8888888888" />
-                    </Col>
-                </FormGroup>
 
                 <h2>Privacy</h2>
+                {/* Visibility */}
                 <div className="flex-row" >
                     <p>Visible&nbsp;</p><CustomInput type="switch" id="privacySwitch" name="privacySwitch" label="Private (Other users cannot see you or your dogs)" />
                 </div>
@@ -228,24 +291,27 @@ function UserForm(props) {
                 <h2>Contacts</h2>
                 <ContactsTabs />
             </Form>
-            <br /><br />
-            <div className="flex-row w-100">
-                <Button className="bg-success float-start">Submit Changes</Button>
-                <Button className="bg-danger float-end">Delete My Account</Button>
+
+            <br />
+            <div className="flex-row justify-content-between w-100">
+                <Button className="bg-success">Submit Changes</Button>
+                <Button className="bg-danger">Delete My Account</Button>
             </div>
             
         </>
     )
 }
 
+
 function UserSettingsComponent(props) {
 
     return (
         <Consumer>
             {context => {
+                console.log(context.chosenUser);
                 return (
                     <>
-                        <Header pageName="Settings for" dogName="Username" />
+                        <UserHeader pageName="Settings for" dogName="Username" />
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 m-auto">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, CardText, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem, Form, FormGroup, Label, Input, TabContent, TabPane, Nav, NavItem, NavLink, Popover, PopoverHeader, PopoverBody } from 'reactstrap'
-import Header from './HeaderComponent';
+// import Header from './HeaderComponent';
+import MeetHeader from './MeetHeaderComponent';
 import { Consumer } from "./configContext";
 import Footer from './FooterComponent';
 
@@ -160,7 +161,7 @@ function Care (props) {
             {context => {
                 return(
                     <>
-                        <Header pageName="Take Care of" dogName={context.chosenDog.name} />
+                        <MeetHeader pageName="Take Care of" dogName={context.chosenDog.name} />
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 col-md-6">

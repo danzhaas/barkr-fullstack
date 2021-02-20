@@ -1,11 +1,12 @@
 .container {
-  max-width:1200px;
-  border:10px solid #FFC107;
-  box-sizing: border-box;
+  max-width: 1200px;
+  border: 10px solid #FFC107;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
-  background-color:#33273a;
+  background-color: #33273a;
   font-family: "Josefin Sans", sans-serif;
   text-align: center;
 }
@@ -15,77 +16,83 @@ h1 {
 }
 
 * {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 
 /* .row, .column {
  height:100%;
 } */
-
 .row {
-  background-color:#927737;
+  background-color: #927737;
 }
 
 .flex-row {
-  display:flex;
-  flex-direction: row;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .jumbotron {
-  background-color:#FFC107;
-  margin:0;
+  background-color: #FFC107;
+  margin: 0;
 }
 
 #landing-backsplash {
-  object-fit:cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   background-origin: border-box;
-  height:100%;
+  height: 100%;
   z-index: 0;
 }
 
 #dog-home-img {
-  object-fit:cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   background-origin: border-box;
 }
 
 #landing-overlay {
-  position:absolute;
-  width:100%;
-  height:100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #landing-logo {
-  background-color:rgba(255,193,7,0.3);
+  background-color: rgba(255, 193, 7, 0.3);
 }
 
 #landing-logo * {
   text-shadow: 5px 5px #343840;
   font-size: 10vh;
-  z-index:15;
+  z-index: 15;
 }
 
 #dog-name {
-  bottom:0;
-  margin:0;
-  background-color:rgba(255,255,255,0.5);
+  bottom: 0;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.5);
   font-size: 10vh;
 }
 
 #header-dogs {
-  height:100px;
-  width:100px;
+  height: 100px;
+  width: 100px;
 }
 
 #height-auto {
-  height:auto;
+  height: auto;
 }
 
 #navbar {
-  width:200px;
-  top:112px;
-  right:14px;
-  border:2px solid #DC3545;
+  width: 200px;
+  top: 112px;
+  right: 14px;
+  border: 2px solid #DC3545;
   z-index: 10;
 }
 
@@ -94,9 +101,9 @@ h1 {
 }
 
 .nav-icon {
-  width:32px;
-  padding:auto;
-  margin:0 3px;
+  width: 32px;
+  padding: auto;
+  margin: 0 3px;
 }
 
 i {
@@ -104,27 +111,27 @@ i {
 }
 
 .modal-dialog {
-  width:75%;
+  width: 75%;
   margin: auto;
 }
 
 #home-nav-col > a, #home-nav-col > div, #home-nav-col > button {
-  height:20%;
-  width:100%;
+  height: 20%;
+  width: 100%;
   background-color: #FFC107;
 }
 
 .home-nav-button {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 .h12vh {
-  height:12.5vh;
+  height: 12.5vh;
 }
 
 .h75vh {
-  height:75vh;
+  height: 75vh;
 }
 
 .h100vh {
@@ -132,41 +139,41 @@ i {
 }
 
 #mapDiv, #searchDiv {
-  height:70vh;
+  height: 70vh;
 }
 
 #barkr-tab {
-  background-color:white;
-  color:gray;
+  background-color: white;
+  color: gray;
   margin-right: 3px;
 }
 
 #barkr-tab.active {
-  color:black;
+  color: black;
 }
 
 #barkr-tab h3 {
-  margin:0;
+  margin: 0;
 }
 
 .gsc-control-cse {
-  padding:0;
-  border:0;
-  height:70vh;
-  overflow:scroll;
+  padding: 0;
+  border: 0;
+  height: 70vh;
+  overflow: scroll;
 }
 
 .h80 {
-  height:80%;
+  height: 80%;
 }
 
 .h20 {
-  height:20%;
+  height: 20%;
 }
 
 .footer {
   background-color: #FFC107;
-  margin:0;
+  margin: 0;
 }
 
 #navbarBrand * {
@@ -181,61 +188,76 @@ i {
   color: black;
 }
 
+.justify-content-between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#userForm h2, #userForm label {
+  text-align: start;
+}
+
 /* MEDIA QUERIES */
-
-
 /*  MD - XL */
 /* @media screen and (min-width: 768px) { */
-  #dog-home-img {
-    height: 80%;
-  }
-  #landing-center {
-    height:100vh;
-    z-index:0;
-    position:relative;
-    margin:0;
-    z-index:1
-  }
-  .landing-button {
-    height:45%;
-    width:100%;
-    display:block;
-    z-index:2;
-    background-color: rgba(255, 193, 7, 0.3);
-    margin:0;
-    border:0;
-  }
-  .landing-button:hover {
-    background-color: rgba(255, 193, 7, 0.6);
-  }
-  .top {
-    top:0
-  }
-  .bottom {
-    bottom:0;
-  }
-  .landing-button div {
-    height:100%;
-    width:100%;
-    padding:0;
-    background-color: rgba(255, 255, 255, 0);
-  }
-  #landing-button div button {
-    height:100%;
-    width:100%;
-    background-color: rgba(255, 193, 7, 0.178);
-  }
-  .row {
-    border: 10px solid #927737;
-  }
+#dog-home-img {
+  height: 80%;
+}
 
+#landing-center {
+  height: 100vh;
+  z-index: 0;
+  position: relative;
+  margin: 0;
+  z-index: 1;
+}
 
-  /* XS and SM */
+.landing-button {
+  height: 45%;
+  width: 100%;
+  display: block;
+  z-index: 2;
+  background-color: rgba(255, 193, 7, 0.3);
+  margin: 0;
+  border: 0;
+}
+
+.landing-button:hover {
+  background-color: rgba(255, 193, 7, 0.6);
+}
+
+.top {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.landing-button div {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#landing-button div button {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 193, 7, 0.178);
+}
+
+.row {
+  border: 10px solid #927737;
+}
+
+/* XS and SM */
 @media screen and (max-width: 767px) {
   .container {
-    padding:5px;
-    border:0;
-    background-color:#FFC107;
+    padding: 5px;
+    border: 0;
+    background-color: #FFC107;
   }
   .row {
     border: 5px solid #927737;
@@ -250,29 +272,30 @@ i {
     height: 50%;
   }
   #landing-backsplash {
-    position:absolute;
-    left:-100px;
+    position: absolute;
+    left: -100px;
   }
   #landing-center {
-    height:75%;
+    height: 75%;
     border-top: 0;
     border-bottom: 0;
   }
   #landing-center * {
-    padding:0;
+    padding: 0;
   }
   #landing-button {
-    height:12.5%;
+    height: 12.5%;
   }
   #landing-button * {
-    height:100%;
-    padding:0;
+    height: 100%;
+    padding: 0;
   }
   #page-title {
-    font-size:7vw; 
+    font-size: 7vw;
   }
   #navbarBrand {
-    padding-top:0;
-    padding-bottom:0
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
+/*# sourceMappingURL=App.css.map */

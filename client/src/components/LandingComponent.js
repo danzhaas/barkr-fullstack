@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { DogChooserModal } from './ChooseDogModalComponent';
 import { Consumer } from "./configContext";
@@ -9,18 +10,18 @@ class Landing extends Component {
         super(props);
         this.state= {
             modal: false,
-            popover: false
+            // popover: false
         };
         this.toggleModal = this.toggleModal.bind(this);
-        this.togglePopover = this.togglePopover.bind(this);
+        // this.togglePopover = this.togglePopover.bind(this);
     };
 
     toggleModal() { 
         this.setState({modal: !this.state.modal}) 
     };
-    togglePopover() { 
-        this.setState({popover: !this.state.popover}) 
-    };
+    // togglePopover() { 
+    //     this.setState({popover: !this.state.popover}) 
+    // };
 
     render() {
         const modal=this.state.modal;
@@ -45,13 +46,18 @@ class Landing extends Component {
                                                 <i id="paw" className="fa fa-paw"></i>
                                                 <h1>Barkr</h1>
                                             </div>
-                                            <Button className="btn-warning text-dark landing-button" id="Popover" >
+                                            <Link to={`/user/${context.userId}`} >
+                                            <Button className="btn-warning text-dark landing-button" >
                                                 <h2>Add Your Dog</h2>
                                             </Button>
-                                            <Popover placement="top" isOpen={this.state.popover} target="Popover" toggle={this.togglePopover}>
+                                            </Link>
+                                            {/* <Button className="btn-warning text-dark landing-button" id="Popover" >
+                                                <h2>Add Your Dog</h2>
+                                            </Button> */}
+                                            {/* <Popover placement="top" isOpen={this.state.popover} target="Popover" toggle={this.togglePopover}>
                                                 <PopoverHeader>Coming soon</PopoverHeader>
                                                 <PopoverBody>In development</PopoverBody>
-                                            </Popover>
+                                            </Popover> */}
                                         </div>
                                     </div>
                                 </div>

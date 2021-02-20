@@ -1,46 +1,57 @@
 import React from 'react';
 import { Button, ButtonGroup } from 'reactstrap'
-import Header from './HeaderComponent';
-import {Consumer} from "./configContext";
+import UserHeader from './UserHeaderComponent';
+import { Consumer } from "./configContext";
 import Footer from './FooterComponent';
 import { Link } from 'react-router-dom';
-// import { DOGS } from '../shared/dogs-new-prototype';
 
-// const dogList = dogs.map(dog => {
-//     return (
-//         <div key={dog.id} className="w-100">
-//             <Button className="bg-white w-100" >
-//                 <Link className="d-flex flex-row" onClick={() => context.chooseDog(dog.id)} to="/user/:userId/:dogId">
-//                     <img className="border-1 border-primary rounded-circle" src={dog.pic.filter(pic => pic.type === "thumbnail")[0].img} alt={dog.name + " thumbnail"} />
-//                     <h1 className="my-auto ml-2">{dog.name}</h1>
-//                 </Link>
-//             </Button>
-//         </div>
-//     )
-// })
+
+function DogList ({ context: { chosenUser, dogs, chooseDog }, dogGroup }) {
+    var usersDogs = [];
+    chosenUser[dogGroup].forEach(dogsId => {
+        usersDogs=usersDogs.concat(dogs.filter(dog => dog.id === dogsId));
+    });
+    return (
+        usersDogs.map(dog => {
+            return(
+                <div key={dog.id} className="w-100">
+                    <Button className="bg-white w-100" >
+                        <Link 
+                            className="d-flex flex-row" 
+                            onClick={() => chooseDog(dog.id)} 
+                            to={dogGroup==='myDogs' ? `/user/${chosenUser.id}/${dog.id}` : `/meet/${dog.id}` }
+                        >
+                            <img className="border-1 border-primary rounded-circle" src={dog.pic.filter(pic => pic.type === "thumbnail")[0].img} alt={dog.name + " thumbnail"} />
+                            <h1 className="my-auto ml-2">{dog.name}</h1>
+                        </Link>
+                    </Button>
+                </div>
+            )
+        })
+    )
+}
+
 
 function FormUserComponent(props) {
 
     return (
         <Consumer>
             {context => {
+                console.log("chosen user", context.chosenUser);
                 return (
                     <>
-                        <Header pageName="Welcome Back" dogName="Username" />
+                        <UserHeader pageName="My Homepage" />
                         <div className="container">
                             <div className="row">
                                 <div className="col-12 m-auto">
-                                    <h1>Update My Dogs</h1>
+                                    <h1>Welcome Back <span className='text-light'>{context.chosenUser.name}</span></h1>
+                                    <h2>Update My Dogs</h2>
                                     <ButtonGroup vertical>
-                                        {/* {dogList} */}
-                                        <div /*key={dog.id}*/ className="w-100">
-                                            <Button className="bg-white w-100" >
-                                                <Link className="d-flex flex-row" onClick={() => context.chosenDog.id} to="/user/:userId/:dogId">
-                                                    <img className="border-1 border-primary rounded-circle" src={context.chosenDog.pic.filter(pic => pic.type === "thumbnail")[0].img} alt={context.chosenDog.name + " thumbnail"} />
-                                                    <h1 className="my-auto ml-2">{context.chosenDog.name}</h1>
-                                                </Link>
-                                            </Button>
-                                        </div>
+                                        <DogList 
+                                            context={context} 
+                                            dogGroup='myDogs' 
+                                            
+                                        />
                                         <div className="w-100">
                                             <Button className="bg-white w-100" >
                                                 <Link className="d-flex flex-row" onClick={() => context.chosenDog.id} to="/user/:userId/:dogId">                                                    
@@ -53,25 +64,12 @@ function FormUserComponent(props) {
                             </div>
                             <div className="row">
                                 <div className="col-12 m-auto">
-                                    <h1>Visit Followed Dogs</h1>
+                                    <h2>Visit Followed Dogs</h2>
                                     <ButtonGroup vertical>
-                                        {/* {dogList} */}
-                                        <div /*key={dog.id}*/ className="w-100">
-                                            <Button className="bg-white w-100" >
-                                                <Link className="d-flex flex-row" onClick={() => context.chosenDog.id} to="/user/:userId/:dogId">
-                                                    <img className="border-1 border-primary rounded-circle" src={context.dogs[1].pic.filter(pic => pic.type === "thumbnail")[0].img} alt={context.dogs[1].name + " thumbnail"} />
-                                                    <h1 className="my-auto ml-2">{context.dogs[1].name}</h1>
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                        <div className="w-100">
-                                            <Button className="bg-white w-100" >
-                                                <Link className="d-flex flex-row" onClick={() => context.chosenDog.id} to="/user/:userId/:dogId">                                                    
-                                                    <img className="border-1 border-primary rounded-circle" src={context.dogs[2].pic.filter(pic => pic.type === "thumbnail")[0].img} alt={context.dogs[2].name + " thumbnail"} />
-                                                    <h1 className="my-auto ml-2">{context.dogs[2].name}</h1>
-                                                </Link>
-                                            </Button>
-                                        </div>
+                                    <DogList 
+                                        context={context} 
+                                        dogGroup='followedDogs' 
+                                    />
                                     </ButtonGroup>
                                 </div>
                             </div>

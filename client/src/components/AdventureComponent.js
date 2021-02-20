@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Header from './HeaderComponent';
+// import Header from './HeaderComponent';
+import MeetHeader from './MeetHeaderComponent';
 import { TabContent, TabPane, Nav, NavItem, NavLink } from 'reactstrap';
 import { Consumer } from "./configContext";
 import Footer from './FooterComponent';
@@ -48,7 +49,7 @@ function Adventure() {
             {context => {
                 return(
                     <>
-                        <Header pageName="Adventure with" dogName={context.chosenDog.name} />
+                        <MeetHeader pageName="Adventure with" dogName={context.chosenDog.name} />
                         <div className="container">
                             <div className="row">
                                 <div className="col-12 mh-100 p-0" id="adventure-main">

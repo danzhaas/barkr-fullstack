@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Card, CardText, CardBody, CardImg, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Header from './HeaderComponent';
+// import Header from './HeaderComponent';
+import MeetHeader from './MeetHeaderComponent';
 import Footer from './FooterComponent';
 import { Consumer } from "./configContext";
 
@@ -194,7 +195,7 @@ class DogHome extends Component {
                 {context => {
                     return(
                         <div className="h-100">
-                            <Header pageName="Meet" dogName={context.chosenDog.name} chooseDog={context.chooseDog} />         
+                            <MeetHeader pageName="Meet" dogName={context.chosenDog.name} chooseDog={context.chooseDog} />         
                             <div className="container h-100">                    
                                 <div className="row h-100">                      
                                     <div className="col-12 mh-100 p-0 p-md-1 d-flex flex-row flex-wrap overflow-auto">

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardImg, CardBody, CardTitle, CardText} from 'reactstrap';
-import Header from './HeaderComponent';
+// import Header from './HeaderComponent';
+import MeetHeader from './MeetHeaderComponent';
 import { Consumer } from "./configContext";
 import Footer from './FooterComponent';
 
@@ -36,7 +37,7 @@ const Talk = (props) => {
             {context => {
                 return(
                     <>
-                        <Header pageName="Talk to" dogName={context.chosenDog.name} />
+                        <MeetHeader pageName="Talk to" dogName={context.chosenDog.name} />
                         <div className="container">                    
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 d-flex flex-wrap justify-content-around">

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Row, Button, ButtonGroup, Form, FormGroup, Label, Input, FormText, Col, CustomInput, TabPane, Nav, NavItem, NavLink, TabContent } from 'reactstrap'
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
-import Header from './HeaderComponent';
+import UserHeader from './UserHeaderComponent';
 import {Consumer} from "./configContext";
 import Footer from './FooterComponent';
 import Autosuggest from 'react-autosuggest';
@@ -525,7 +525,7 @@ function FormDogComponent(props) {
             {context => {
                 return (
                     <>
-                        <Header pageName="My Dog" />
+                        <UserHeader pageName="My Dog" />
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 m-auto">
