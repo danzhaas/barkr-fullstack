@@ -20,13 +20,7 @@ const UserSchema = new mongoose.Schema({
             type:String,
             required:true
         },
-        address: {
-            street:String,
-            city:String,
-            state:String,
-            zip: String
-        },
-        phone: String
+        ZIP: Number
     },
     dogs: {
         owned: [
@@ -57,25 +51,21 @@ const UserSchema = new mongoose.Schema({
     //         ref: 'message'
     //     }
     // ],
+    private:{
+        type:Boolean,
+        default:false
+    },
     contacts: {
         owner: {
-            displayName:{
-                type:Boolean,
-                default:false
-            },
-            displayAddress:{
+            displayed:{
                 type:Boolean,
                 default:false
             },
             address:String,
-            displayPhone:{
-                type:Boolean,
-                default:false
-            },
             phone:String
         },
         vet: {
-            vetDisplayed:{
+            displayed:{
                 type:Boolean,
                 default:false
             },
@@ -84,7 +74,7 @@ const UserSchema = new mongoose.Schema({
             phone:String
         },
         emergencyVet: {
-            vetDisplayed:{
+            displayed:{
                 type:Boolean,
                 default:false
             },
@@ -93,14 +83,6 @@ const UserSchema = new mongoose.Schema({
             phone:String
         }
     },
-    settings: [
-        {
-            private:{
-                type:Boolean,
-                default:false
-            },
-        }
-    ],
     dateRegistered: {
         type:Date,
         default:Date.now

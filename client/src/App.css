@@ -194,8 +194,13 @@ i {
           justify-content: space-between;
 }
 
-#userForm h2, #userForm label {
+#userForm h2, #userForm label, #userForm p {
   text-align: start;
+}
+
+#userForm .text-center {
+  width: 100%;
+  text-align: center;
 }
 
 /* MEDIA QUERIES */

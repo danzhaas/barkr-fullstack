@@ -74,10 +74,10 @@ router.post(
 );
 
 
-// @route   GET api/users/:username
+// @route   GET api/users/:id
 // @desc    Find another user
 // @access  Public
-router.get('/:id', auth, async (req, res) => { // note auth middleware and async because we're making a call to the database
+router.get('/:id', async (req, res) => { // note auth middleware and async because we're making a call to the database
     try {
         const user = await User.findById(req.params.id)  // jwt authorization happens here: the findById method calls req.user we declared in the auth middleware
         .select('-password');  // query for the above user will exclude the password field
@@ -91,6 +91,16 @@ router.get('/:id', auth, async (req, res) => { // note auth middleware and async
 // @route   PUT api/users/:id
 // @desc    Update user (ex. add dogs, add/remove favorite dogs, update address, etc.)
 // @access  Private
+router.put('/:id', auth, async (req, res) => { // note auth middleware and async because we're making a call to the database
+    try {
+        const user = await User.findById(req.params.id)  // jwt authorization happens here: the findById method calls req.user we declared in the auth middleware
+        .select('-password');  // query for the above user will exclude the password field
+        res.json(user); // response inludes the object returned by user document query
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route   DELETE api/users/:id
 // @desc    Delete user

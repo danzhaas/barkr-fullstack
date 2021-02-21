@@ -4,11 +4,11 @@ export const DOGS = [
         "name":"Suede",
         "bio":" Hi, I'm a 4 1/2 year old female Treeing Walker Coonhound.  I love meeting people, eating treats, and going to the dog park.  Outside the park I need space from other dogs.  I know a lot of tricks, so go to the Talk to Me page to see all the commands I know.",
         "sex": "Female",
-        "breed": "Treeing Walker Coonhound",
+        "breeds": [
+            "Treeing Walker Coonhound"
+        ],
         "yearBorn": "2015",
         "from": "Harford County Humane Society, Fallston, MD",
-        "siblings": "n/a",
-        "owner": "Dan Haas",
         "pic": [
             {
                 "type":"thumbnail",
@@ -160,7 +160,9 @@ export const DOGS = [
                 "tabPhone":"410-788-7040",
                 "emergencyVet": true
             }
-        ]
+        ],
+        "owner": "Dan Haas",
+        "siblings": []
     },
 
 

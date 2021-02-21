@@ -46,12 +46,28 @@ const ContactsCard = ({ name, address, phone }) => {
 }
 
 
-const ContactsTabs = (props) => {
+const ContactsTabs = ({ formData, setFormData }) => {
     const [activeTab, setActiveTab] = useState('1');
 
     const toggle = tab => {
         if (activeTab !== tab) setActiveTab(tab);
     }
+
+    const {
+        aName,
+        username,
+        ownerDisplayed,
+        ownerAddress,
+        ownerPhone,
+        vetDisplayed,
+        vetBusinessName,
+        vetAddress,
+        vetPhone,
+        eVetDisplayed,
+        eVetBusinessName,
+        eVetAddress,
+        eVetPhone
+    } = formData;
 
 
     return (
@@ -70,34 +86,42 @@ const ContactsTabs = (props) => {
                         <Col sm="12">
                             <p>Your Contact Card</p>
                             <FormGroup>
-                            <CustomInput type="switch" id="contactOwnerDisplaySwitch" name="contactOwnerDisplaySwitch" label="Display this tab to other users?" checked />
+                            <CustomInput type="switch" id="contactOwnerDisplaySwitch" name="contactOwnerDisplaySwitch" 
+                            checked={ownerDisplayed} onClick={() => setFormData({...formData, ownerDisplayed:!ownerDisplayed})}
+                            label="Display this tab to other users?" />
                             </FormGroup>
                         </Col>
                     </Row>
                     <Row className="bg-white border-0">
-                        <Col sm="6">
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="ownerName" sm={2}>Name</Label>
-                                <Col sm={10}>
-                                    Username
+                        { ownerDisplayed ? 
+                            <>
+                                <Col sm="6">
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="ownerName" sm={2}>Name</Label>
+                                        <Col sm={10}>
+                                            {username}
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="ownerAddress" sm={2}>Address</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="ownerAddress" id="ownerAddress" value={ownerAddress} placeholder="123 Fake St" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="ownerPhone" sm={2}>Phone</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="ownerPhone" id="ownerPhone" value={ownerPhone}  placeholder="888-888-8888" />
+                                        </Col>
+                                    </FormGroup>
                                 </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="ownerAddress" sm={2}>Address</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="ownerAddress" id="ownerAddress" placeholder="123 Fake St" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="ownerPhone" sm={2}>Phone</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="ownerPhone" id="ownerPhone" placeholder="8888888888" />
-                                </Col>
-                            </FormGroup>
-                        </Col>
-                        <div className="col col-md-6">
-                            <ContactsCard name="Owner Name" address="Owner Address" phone="4105555555" />
-                        </div>
+                                <div className="col col-md-6">
+                                    <ContactsCard name={aName} address={ownerAddress} phone={ownerPhone} />
+                                </div>
+                            </>
+                            :
+                            <h3 className="text-center" >No Owner card will be displayed</h3> 
+                        }
                     </Row>
                 </TabPane>
 
@@ -107,36 +131,46 @@ const ContactsTabs = (props) => {
                         <Col sm="12">
                             <p>Vet Contact Card</p>
                             <FormGroup>
-                                <CustomInput type="switch" id="contactVetDisplaySwitch" name="contactVetDisplaySwitch" label="Display this tab to other users?" checked />
+                                <CustomInput type="switch" id="contactVetDisplaySwitch" name="contactVetDisplaySwitch" 
+                                checked={vetDisplayed} onClick={() => setFormData({...formData, vetDisplayed:!vetDisplayed})}
+                                label="Display this tab to other users?"  
+                            />
                             </FormGroup>
                         </Col>
                     </Row>
                     <Row className="bg-white border-0">
-                        <Col sm="6">
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactVetName" sm={2}>Name</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactVetName" id="contactVetName" placeholder="Vet Clinic Name" />
+                        { vetDisplayed ? 
+                            <>
+                                <Col sm="6">
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactVetName" sm={2}>Name</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactVetName" id="contactVetName" value={vetBusinessName} placeholder="Vet Clinic Name" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactVetAddress" sm={2}>Address</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactVetAddress" id="contactVetAddress" value={vetAddress} placeholder="123 Fake St" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactVetPhone" sm={2}>Phone</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactVetPhone" id="contactVetPhone" value={vetPhone} placeholder="8888888888" />
+                                        </Col>
+                                    </FormGroup>
                                 </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactVetAddress" sm={2}>Address</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactVetAddress" id="contactVetAddress" placeholder="123 Fake St" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactVetPhone" sm={2}>Phone</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactVetPhone" id="contactVetPhone" placeholder="8888888888" />
-                                </Col>
-                            </FormGroup>
-                        </Col>
-                        <div className="col col-md-6">
-                            <ContactsCard name="Vet Name" address="Vet Address" phone="4105555556" />
-                        </div>
+                                <div className="col col-md-6">
+                                    <ContactsCard name={vetBusinessName} address={vetAddress} phone={vetPhone} />
+                                </div>
+                            </>
+                            :
+                            <h3 className="text-center" >No Vet card will be displayed</h3> 
+                        }
                     </Row>
                 </TabPane>
+
 
                 {/* Emergency Vet Tab */}
                 <TabPane tabId="3">
@@ -144,35 +178,46 @@ const ContactsTabs = (props) => {
                         <Col sm="12">
                             <p>Emergency Vet Contact Card</p>
                             <FormGroup>
-                                <CustomInput type="switch" id="contactEVetDisplaySwitch" name="contactEVetDisplaySwitch" label="Display this tab to other users?" checked />
+                                <CustomInput type="switch" id="contactEVetDisplaySwitch" name="contactEVetDisplaySwitch" 
+                                label="Display this tab to other users?" 
+                                checked={eVetDisplayed} onClick={() => setFormData({...formData, eVetDisplayed:!eVetDisplayed})}
+                                />
                             </FormGroup>
                         </Col>
                     </Row>
+                    
                     <Row className="bg-white border-0">
-                        <Col sm="6">
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactEVetName" sm={2}>Name</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactEVetName" id="contactEVetName" placeholder="Emergency Vet Clinic Name" />
+                        { eVetDisplayed ? 
+                            <>
+                                <Col sm="6">
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactEVetName" sm={2}>Name</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactEVetName" id="contactEVetName" value={eVetBusinessName} placeholder="Emergency Vet Clinic Name" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactVetAddress" sm={2}>Address</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactEVetAddress" id="contactEVetAddress" value={eVetAddress} placeholder="123 Fake St" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup className="bg-white border-0" row>
+                                        <Label for="contactVetPhone" sm={2}>Phone</Label>
+                                        <Col sm={10}>
+                                            <Input type="text" name="contactEVetPhone" id="contactEVetPhone" value={eVetPhone} placeholder="8888888888" />
+                                        </Col>
+                                    </FormGroup>
                                 </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactVetAddress" sm={2}>Address</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactEVetAddress" id="contactEVetAddress" placeholder="123 Fake St" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup className="bg-white border-0" row>
-                                <Label for="contactVetPhone" sm={2}>Phone</Label>
-                                <Col sm={10}>
-                                    <Input type="text" name="contactEVetPhone" id="contactEVetPhone" placeholder="8888888888" />
-                                </Col>
-                            </FormGroup>
-                        </Col>
-                        <div className="col col-md-6">
-                            <ContactsCard name="E-Vet Name" address="E-Vet Address" phone="4105555557" />
-                        </div>
+                                <div className="col col-md-6">
+                                    <ContactsCard name={eVetBusinessName} address={eVetAddress} phone={eVetPhone} />
+                                </div>
+                            </>
+                            : 
+                            <h3 className="text-center" >No Emergency Vet card will be displayed</h3> 
+                        }
                     </Row>
+
                 </TabPane>
 
             </TabContent>
@@ -206,60 +251,82 @@ function UserForm(props) {
     //     submitUserSettings();
     // })
 
-    const [ formValues, updateValues ] = useState(
-        // id,
-        // username,
-        // email,
+    const [ formData, setFormData ] = useState({
+        id:"",
+        username:"",
+        email:"",
+        password1:"",
+        password2:"",
         // personal: {
-        //   name,
-        //   ZIP   
+            aName:"",
+            ZIP:"",
         // },
-        // private,
+        privacy:false,
         // contacts: {
-        //   owner: {
-        //      displayed,
-        //      address,
-        //      phone
-        //   },
-        //   vet: {
-        //      displayed,
-        //      businessName,
-        //      address,
-        //      phone
-        //   },
-        //   emergencyVet: {
-        //      displayed,
-        //      businessName,
-        //      address,
-        //      phone
-        //   }
+            // owner: {
+                ownerDisplayed:true,
+                ownerAddress:"",
+                ownerPhone:"",
+            // },
+            // vet: {
+                vetDisplayed:true,
+                vetBusinessName:"",
+                vetAddress:"",
+                vetPhone:"",
+            // },
+            // emergencyVet: {
+                eVetDisplayed:true,
+                eVetBusinessName:"",
+                eVetAddress:"",
+                eVetPhone:"",
+            // }
         // },
-        // dateRegistered
-    )
-    
+        dateRegistered:""
+    })
+
+
+    const {
+        id,
+        username,
+        email,
+        password1,
+        password2,
+        aName,
+        ZIP,
+        privacy,
+        dateRegistered
+    } = formData;
+
+
     return (
         <>
             <Form id="userForm" >
+
+                <h2>User Info</h2>
+                <p>Name: {aName}</p>
+                <p>Username: {username}</p>
+                <p>Link to my profile: http://barkr.com/user/{id}/view</p>
+                <p>Date registered: {dateRegistered}</p>
 
                 <h2>Login</h2>
                 {/* Email */}
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
                     <Col sm={10}>
-                        <Input type="email" name="email" id="email" placeholder="your@email.com" />
+                        <Input type="email" name="email" id="email" placeholder="your@email.com" value={email} />
                     </Col>
                 </FormGroup>
                 {/* Change Password */}
                 <FormGroup row>
                     <Label for="password1" sm={2}>Change Password</Label>
                     <Col sm={10}>
-                        <Input type="password" name="password1" id="password1" placeholder=""/>
+                        <Input type="password" name="password1" id="password1" placeholder="" value={password1} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Label for="password2" sm={2}>Confirm New Password</Label>
                     <Col sm={10}>
-                        <Input type="password" name="password2" id="password2" />
+                        <Input type="password" name="password2" id="password2" value={password2} />
                     </Col>
                 </FormGroup>
 
@@ -268,7 +335,7 @@ function UserForm(props) {
                 <FormGroup row>
                     <Label for="aName" sm={2}>Name</Label>
                     <Col sm={10}>
-                        <Input type="text" name="aName" id="aName" placeholder="First Last" />
+                        <Input type="text" name="aName" id="aName" placeholder="First Last" value={aName} />
                     </Col>
                 </FormGroup>
                 {/* ZIP */}
@@ -278,18 +345,21 @@ function UserForm(props) {
                         <p sm={12}>(for finding adventure)</p>
                     </div>
                     <Col sm={10}>
-                        <Input type="text" name="ZIP" id="ZIP" placeholder="90210" />
+                        <Input type="text" name="ZIP" id="ZIP" placeholder="90210" value={ZIP} />
                     </Col>
                 </FormGroup>
 
                 <h2>Privacy</h2>
                 {/* Visibility */}
                 <div className="flex-row" >
-                    <p>Visible&nbsp;</p><CustomInput type="switch" id="privacySwitch" name="privacySwitch" label="Private (Other users cannot see you or your dogs)" />
+                    <p>Visible&nbsp;</p>
+                    <CustomInput type="switch" id="privacySwitch" name="privacySwitch" checked={privacy} onClick={() => setFormData({...formData, privacy:!privacy})}
+                        label="Private (Other users cannot see you or your dogs)" 
+                    />
                 </div>
                 
                 <h2>Contacts</h2>
-                <ContactsTabs />
+                <ContactsTabs formData={formData} setFormData={setFormData} />
             </Form>
 
             <br />

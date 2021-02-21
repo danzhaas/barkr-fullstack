@@ -186,8 +186,12 @@ i {
 }
 
 #userForm {
-  h2, label {
+  h2, label, p {
     text-align: start;
+  }
+  .text-center {
+    width:100%;
+    text-align:center
   }
 }
 

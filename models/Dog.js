@@ -11,7 +11,11 @@ const DogSchema = new mongoose.Schema({
             required:true
         },
         sex: String,
-        breed:String,
+        breeds:[
+            {
+                breed:String
+            }
+        ],
         yearBorn:Number,
         from:String
     },
