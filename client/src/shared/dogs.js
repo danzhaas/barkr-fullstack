@@ -115,10 +115,6 @@ export const DOGS = [
             },
             {
                 "id":6,
-                "detail": "8:00 AM Quick Walk"
-            },
-            {
-                "id":7,
                 "detail": "9:00 PM Bedtime"
             }
         ],

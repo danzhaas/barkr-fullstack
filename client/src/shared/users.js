@@ -7,7 +7,8 @@ export const USERS = [
         "ZIP":21202,
         "privacy":false,
         "myDogs": [
-            0
+            0,
+            1
         ],
         "followedDogs": [
             1,
