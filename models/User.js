@@ -15,13 +15,11 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    personal: {
-        name: {
-            type:String,
-            required:true
-        },
-        ZIP: Number
+    aName: {
+        type:String,
+        required:true
     },
+    ZIP: Number,
     dogs: {
         owned: [
             {
@@ -51,7 +49,7 @@ const UserSchema = new mongoose.Schema({
     //         ref: 'message'
     //     }
     // ],
-    private:{
+    privacy:{
         type:Boolean,
         default:false
     },
@@ -85,7 +83,7 @@ const UserSchema = new mongoose.Schema({
     },
     dateRegistered: {
         type:Date,
-        default:Date.now
+        default:new Date().toLocaleDateString('en-US')
     }
 });
 

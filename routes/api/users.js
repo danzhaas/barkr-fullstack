@@ -28,7 +28,7 @@ router.post(
             return res.status(400).json({ errors: errors.array() })  // code 400: bad request, in this case validation failed
         }
             
-        const { username, email, password, name } = req.body; //deconstruct user fields from the request object
+        const { username, email, password, aName } = req.body; //deconstruct user fields from the request object
 
         try {
             
@@ -41,9 +41,7 @@ router.post(
                 username,
                 email,
                 password,    // note: unencrypted.  This needs to be fixed right away.
-                personal: {
-                    name
-                }
+                aName
             })
             
             const salt = await bcrypt.genSalt(10); // Encrypt password part 1: generate salt with 10 digits; 

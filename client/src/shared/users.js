@@ -3,9 +3,9 @@ export const USERS = [
         "id":0,
         "username":"theOriginalBarkr",
         "email":"danzhaas@gmail.com",
-        "name":"Dan Haas",
+        "aName":"Dan Haas",
         "ZIP":21202,
-        "private":false,
+        "privacy":false,
         "myDogs": [
             0
         ],
@@ -32,6 +32,6 @@ export const USERS = [
                 "phone":"410-788-7040"
             }
         },
-        "dateRegistered":1613767780673
+        "dateRegistered":"Feb 18 2021"
     }
 ]

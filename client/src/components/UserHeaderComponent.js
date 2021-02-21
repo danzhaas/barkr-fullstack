@@ -65,7 +65,7 @@ class MeetHeader extends Component {
                                             </NavItem> */}
                                             <NavItem>
                                                 <NavLink className="nav-link d-flex flex-row btn btn-warning" to={`/user/${context.userId}/settings`} >
-                                                    <i class="nav-icon fas fa-user-cog fa-2x"></i>
+                                                    <i className="nav-icon fas fa-user-cog fa-2x"></i>
                                                     <h5>My Settings</h5>
                                                 </NavLink>
                                             </NavItem>
