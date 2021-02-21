@@ -45,5 +45,4 @@ class ConfigProvider extends Component {
     }
 }
 
-//ADD CURLY BRACES AROUND CONSUMER IN ALL IMPORTS
 export { Consumer, ConfigProvider }

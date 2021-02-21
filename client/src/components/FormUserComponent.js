@@ -40,7 +40,7 @@ function FormUserComponent(props) {
 
                 return (
                     <>
-                        <UserHeader pageName="Homepage for" userName={context.chosenUser.name} />
+                        <UserHeader pageName="Homepage for" userName={context.chosenUser.aName} />
                         <div className="container">
                             <div className="row">
                                 <div className="col-12 m-auto">

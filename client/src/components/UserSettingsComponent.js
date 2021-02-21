@@ -54,7 +54,6 @@ const ContactsTabs = ({ formData, setFormData }) => {
 
     var {
         aName,
-        username,
         ownerDisplayed,
         ownerAddress,
         ownerPhone,
@@ -333,13 +332,13 @@ function UserForm({ context: { chosenUser, chooseUser, userId } }) {
         <>
             <Form id="userForm" >
 
-                <h2>User Info</h2>
+                <h1>User Info</h1>
                 <p>Name: {aName}</p>
                 <p>Username: {username}</p>
                 <p>User id: {id}</p>
                 <p>Date registered: {dateRegistered}</p>
 
-                <h2>Login</h2>
+                <h1>Login</h1>
                 {/* Email */}
                 <FormGroup row>
                     <Label for="email" sm={2}>Email</Label>
@@ -361,7 +360,7 @@ function UserForm({ context: { chosenUser, chooseUser, userId } }) {
                     </Col>
                 </FormGroup>
 
-                <h2>Personal Info</h2>
+                <h1>Personal Info</h1>
                 {/* Name */}
                 <FormGroup row>
                     <Label for="aName" sm={2}>Name</Label>
@@ -380,7 +379,7 @@ function UserForm({ context: { chosenUser, chooseUser, userId } }) {
                     </Col>
                 </FormGroup>
 
-                <h2>Privacy</h2>
+                <h1>Privacy</h1>
                 {/* Visibility */}
                 <div className="flex-row" >
                     <p>Visible&nbsp;</p>
@@ -389,7 +388,7 @@ function UserForm({ context: { chosenUser, chooseUser, userId } }) {
                     />
                 </div>
                 
-                <h2>Contact Cards</h2>
+                <h1>Contact Cards</h1>
                 <ContactsTabs formData={formData} setFormData={setFormData} />
             </Form>
 

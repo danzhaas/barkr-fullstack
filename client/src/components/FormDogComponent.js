@@ -8,15 +8,15 @@ import Footer from './FooterComponent';
 import Autosuggest from 'react-autosuggest';
 import dogBreeds from 'dog-breeds';
 
-const DogFields = (props) => {
-    const [activeTab, setActiveTab] = useState('1');
+const DogFields = ({context}) => {
+    const [activeTab, setActiveTab] = useState('3');
 
     const toggle = tab => {
         if (activeTab !== tab) setActiveTab(tab);
     }
 
     return (
-        <div>
+        <div id="dogForm" >
             <Nav tabs>
                 <NavItem id="barkr-tab">
                     <NavLink
@@ -56,28 +56,28 @@ const DogFields = (props) => {
                 <TabPane tabId="1">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <HomeForm  />
+                            <HomeForm context={context} />
                         </Col>
                     </Row>
                 </TabPane>
                 <TabPane tabId="2">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <SpeakForm context={props.context} />
+                            <SpeakForm context={context} />
                         </Col>
                     </Row>
                 </TabPane>
                 <TabPane tabId="3">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <AdventureForm context={props.context} />
+                            <AdventureForm context={context} />
                         </Col>
                     </Row>
                 </TabPane>
                 <TabPane tabId="4">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <CareForm />
+                            <CareForm context={context} />
                         </Col>
                     </Row>
                 </TabPane>
@@ -94,13 +94,16 @@ const DogFields = (props) => {
 // ██║  ██║╚██████╔╝██║ ╚═╝ ██║███████╗
 // ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝
                                     
-function HomeForm(props) {
+function HomeForm({ context: { chosenDog } }) {
 
     const dogsList = dogBreeds.all;
 
     return (
         <div className="bg-white border-0">
+            <h1>Dog Info</h1>
+            <p>Dog ID: {chosenDog.id}</p>
             <Form>
+                
                 <FormGroup className="bg-white border-0" row>
                     <Label for="name" sm={3}>Name</Label>
                     <Col sm={9}>
@@ -123,7 +126,11 @@ function HomeForm(props) {
                     </Col>
                 </FormGroup>
                 <FormGroup className="bg-white border-0" row>
-                    <Label for="selectBreeds" sm={3}>Select All Breeds</Label>
+                    <Col>
+                        <Label className="text-left" for="selectBreeds" >Select All Breeds</Label>
+                        <p><i class="fas fa-paw"></i> Start typing to jump ahead</p>
+                        <p><i class="fas fa-paw"></i> Ctrl+Click to select multiple</p>
+                    </Col>
                     <Col sm={9}>
                         <Input type="select" name="selectBreeds" id="selectBreeds" multiple>
                             {dogsList.map(breed => <option>{breed.name}</option>)}
@@ -136,6 +143,7 @@ function HomeForm(props) {
                         <Input type="text" name="birthYear" id="birthYear" />
                     </Col>
                 </FormGroup>
+                <h1>Pictures</h1>
                 <FormGroup className="bg-white border-0" className="d-flex flex-row flex-wrap">
                     <Label className="col-3" for="">Upload Thumbnail Picture</Label>
                     <Input className="col-9" type="file" name="thumbnailPic" id="thumbnailPic" />
@@ -241,7 +249,65 @@ function SpeakForm(props) {
                     <Button className="bg-danger">Delete Command</Button>
                 </Form>
             </div>
-            
+        </Row>
+    )
+}
+
+
+//  █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
+// ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║   ██║██╔══██╗██╔════╝
+// ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝█████╗  
+// ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗██╔══╝  
+// ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
+// ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
+
+
+function AdventureForm(props) {
+
+    const [displayUrlInput, toggledisplay] = useState(false);
+
+    return (
+        <div className="bg-white border-0">
+            <Form>
+                <FormGroup>
+                    <Label for="toggleAdventure">Share your map of dog parks?</Label>
+                        <CustomInput type="switch" id="toggleAdventure" name="toggleAdventure" 
+                        label="Share my map" 
+                        checked={displayUrlInput}
+                        onChange={() => toggledisplay(!displayUrlInput)}
+                    />
+                </FormGroup>
+                {displayUrlInput ? 
+                <FormGroup>
+                    <Label for="mapUrl">Enter Google My Maps Url.  Make a Map at https://www.google.com/maps/d/u/0/</Label>
+                    <Input
+                        type="url"
+                        name="mapUrl"
+                        id="mapUrl"
+                        placeholder="ex: https://www.google.com/maps/d/u/0/embed?mid=1J75h137lZpMDdLeovFbWOkHCl_YZDRlg"
+                    />
+                </FormGroup>
+                :
+                ""
+                }
+            </Form>
+        </div>
+    )
+}
+
+
+//  ██████╗ █████╗ ██████╗ ███████╗
+// ██╔════╝██╔══██╗██╔══██╗██╔════╝
+// ██║     ███████║██████╔╝█████╗  
+// ██║     ██╔══██║██╔══██╗██╔══╝  
+// ╚██████╗██║  ██║██║  ██║███████╗
+//  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+
+
+function CareForm(props) {
+
+    return (
+        <>
             <Form>
                 <FormGroup row>
                     <Label for="exampleFile" sm={3}>File</Label>
@@ -314,15 +380,7 @@ function SpeakForm(props) {
                         placeholder="password placeholder"
                     />
                 </FormGroup>
-                <FormGroup>
-                    <Label for="exampleUrl">Url</Label>
-                    <Input
-                        type="url"
-                        name="url"
-                        id="exampleUrl"
-                        placeholder="url placeholder"
-                    />
-                </FormGroup>
+
                 <FormGroup>
                     <Label for="exampleNumber">Number</Label>
                     <Input
@@ -520,64 +578,6 @@ function SpeakForm(props) {
                     <CustomInput type="file" id="exampleCustomFileBrowser" name="customFile" disabled />
                 </FormGroup>
             </Form>
-        </Row>
-    )
-}
-
-
-//  █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
-// ██╔══██╗██╔══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║   ██║██╔══██╗██╔════╝
-// ███████║██║  ██║██║   ██║█████╗  ██╔██╗ ██║   ██║   ██║   ██║██████╔╝█████╗  
-// ██╔══██║██║  ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   ██║   ██║██╔══██╗██╔══╝  
-// ██║  ██║██████╔╝ ╚████╔╝ ███████╗██║ ╚████║   ██║   ╚██████╔╝██║  ██║███████╗
-// ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-
-
-function AdventureForm(props) {
-
-    return (
-        <div className="bg-white border-0">
-            <Form>
-                <FormGroup row>
-                    <Label for="exampleFile" sm={3}>File</Label>
-                    <Col sm={9}>
-                        <Input type="file" name="file" id="exampleFile" />
-                        <FormText color="muted">
-                            This is some placeholder block-level help text for the above input.
-                            It's a bit lighter and easily wraps to a new line.
-                        </FormText>
-                    </Col>
-                </FormGroup>
-            </Form>
-        </div>
-    )
-}
-
-
-//  ██████╗ █████╗ ██████╗ ███████╗
-// ██╔════╝██╔══██╗██╔══██╗██╔════╝
-// ██║     ███████║██████╔╝█████╗  
-// ██║     ██╔══██║██╔══██╗██╔══╝  
-// ╚██████╗██║  ██║██║  ██║███████╗
-//  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-
-
-function CareForm(props) {
-
-    return (
-        <>
-            <Form>
-                <FormGroup row>
-                    <Label for="exampleFile" sm={3}>File</Label>
-                    <Col sm={9}>
-                        <Input type="file" name="file" id="exampleFile" />
-                        <FormText color="muted">
-                            This is some placeholder block-level help text for the above input.
-                            It's a bit lighter and easily wraps to a new line.
-                        </FormText>
-                    </Col>
-                </FormGroup>
-            </Form>
         </>
     )
 }
@@ -593,7 +593,7 @@ function FormDogComponent(props) {
                         <div className="container">
                             <div className="row h75vh overflow-auto">
                                 <div className="col-12 m-auto">
-                                    <h1 className="text-primary" >{context.chosenDog.name}</h1>
+                                    <h1>{context.chosenDog.name}</h1>
                                     <DogFields context={context} />
                                     <br /><br />
                                     <Button className="bg-success">Submit Changes</Button>

@@ -185,13 +185,17 @@ i {
   justify-content: space-between
 }
 
-#userForm {
-  h2, label, p {
+#userForm, #dogForm {
+  h1, h2, label, p {
     text-align: start;
   }
   .text-center {
     width:100%;
     text-align:center
+  }
+  .text-left {
+    width:100%;
+    text-align:left
   }
 }
 

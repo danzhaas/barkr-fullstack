@@ -21,7 +21,7 @@ function AdventureSearch () {
 function AdventureMap() {
     return (
         <div id="mapDiv" className="embed-responsive embed-responsive-1by1">
-            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1J75h137lZpMDdLeovFbWOkHCl_YZDRlg" title="Google Custom Search Engine"></iframe>
+            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1J75h137lZpMDdLeovFbWOkHCl_YZDRlg" title="Google My Maps"></iframe>
         </div>
     )
 }

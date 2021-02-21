@@ -194,13 +194,18 @@ i {
           justify-content: space-between;
 }
 
-#userForm h2, #userForm label, #userForm p {
+#userForm h1, #userForm h2, #userForm label, #userForm p, #dogForm h1, #dogForm h2, #dogForm label, #dogForm p {
   text-align: start;
 }
 
-#userForm .text-center {
+#userForm .text-center, #dogForm .text-center {
   width: 100%;
   text-align: center;
+}
+
+#userForm .text-left, #dogForm .text-left {
+  width: 100%;
+  text-align: left;
 }
 
 /* MEDIA QUERIES */
