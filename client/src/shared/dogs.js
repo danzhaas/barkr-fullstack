@@ -27,6 +27,7 @@ export const DOGS = [
             {
                 "id":0,
                 "name":"Balance",
+                "commandName":"Balance",
                 "image":"assets/img/balance.gif",
                 "description":"Place a treat on top of my nose. See how patient I am?"
             },

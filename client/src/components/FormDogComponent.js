@@ -164,10 +164,10 @@ function HomeForm({ context: { chosenDog, chooseDog, dogId } }) {
 // ███████║██║     ███████╗██║  ██║██║  ██╗
 // ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
                                         
-const CommandsList = ({context: { chosenDog }, setActiveCommand}) => {
+const CommandsList = ({ commands, setActiveCommand}) => {
 
     return(
-        chosenDog.commands.map(command => {
+        commands.map(command => {
             return(
                 <div key={command.id} className="w-100">
                     <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
@@ -179,8 +179,84 @@ const CommandsList = ({context: { chosenDog }, setActiveCommand}) => {
     )
 }
 
-function SpeakForm({ context }) {
-    const [activeCommand, setActiveCommand] = useState('0');
+function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
+    
+    const [ activeCommand, setActiveCommand ] = useState('0');
+    const [ updatedCommandsList, updateCommands ] = useState(
+        [...chosenDog.commands]
+        // [
+        //     {
+        //         "id":0,
+        //         "commandName":"My First Command",
+        //         "image":"",
+        //         "description":"The first trick I can do"
+        //     }
+        // ]
+    );
+    const [ formData, setFormData ] = useState({
+        "id":0,
+        "commandName":"My First Command",
+        "image":"",
+        "description":"The first trick I can do"
+    });
+
+    useEffect(() => {
+        if (!chosenDog) chooseDog(dogId);
+
+        // const {
+        //     originalCommandsList
+        // } = chosenDog;
+
+        updateCommands({
+            commands:chosenDog.commands
+        });
+
+        const {
+            id,
+            commandName,
+            image,
+            description
+        } = updatedCommandsList[activeCommand];
+
+        setFormData({
+            command: {
+                id,
+                commandName,
+                image,
+                description
+            }
+        });
+
+    }, [ activeCommand, setActiveCommand, updatedCommandsList, updateCommands ])
+
+    var {
+        id,
+        commandName,
+        image,
+        description
+    } = formData;
+
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
+
+    function addNewCommand () {
+        setFormData({
+            id:updatedCommandsList.length,
+            commandName:"",
+            image:"",
+            description:""
+        })
+    }
+
+    function updateCommand () {
+        const commandUpdate = updatedCommandsList.concat({
+            ...formData
+        });
+        updateCommands({
+            commandUpdate
+        })
+    }
 
     return (
         <div className="bg-white border-0">
@@ -188,32 +264,32 @@ function SpeakForm({ context }) {
             <Row className="bg-white border-0 py-3">
                 <div className="col-4">
                     <div className="w-100">
-                        <Button className="bg-white w-100" >
+                        <Button className="bg-white w-100" onClick={ () => addNewCommand() } >
                             <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
                         </Button>
                     </div>
                     <h2>Known Commands</h2>
-                    <CommandsList context={context} setActiveCommand={setActiveCommand} />
+                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} />
                 </div>
                 <div className="col-8">
                     <Form>
                         <FormGroup className="bg-white border-0" row>
-                            <Label for="name" sm={3}>Command</Label>
+                            <Label for="commandName" sm={3}>Command</Label>
                             <Col sm={9}>
-                                <Input type="text" name="name" id="name" value={ context.chosenDog.commands[activeCommand].name} />
+                                <Input type="text" name="commandName" id="commandName" value={ commandName } onChange={(e) => onChange(e)} />
                             </Col>
                         </FormGroup>
                         <FormGroup className="bg-white border-0" row>
                             <Label for="name" sm={3}>Description</Label>
                             <Col sm={9}>
-                                <Input type="text" name="description" id="description" value={ context.chosenDog.commands[activeCommand].description} />
+                                <Input type="text" name="description" id="description" value={ description } onChange={(e) => onChange(e)} />
                             </Col>
                         </FormGroup>
                         <FormGroup tag="fieldset" className="bg-white border-0" row>
                             <legend className="col-form-label">Choose Image</legend>
                             <FormGroup check>
                                 <Label check>
-                                    <Input type="radio" name="photoSource" value={ context.chosenDog.commands[activeCommand].image} />{' '}
+                                    <Input type="radio" name="photoSource" />{' '}
                                     Upload a picture or GIF
                                 </Label>
                             </FormGroup>
@@ -231,15 +307,15 @@ function SpeakForm({ context }) {
                             </FormGroup>
                         </FormGroup>
                         <FormGroup className="bg-white border-0" className="d-flex flex-row flex-wrap">
-                            <Label className="col-3" for="">Upload Picture/GIF</Label>
-                            <Input className="col-9" type="file" name="thumbnailPic" id="thumbnailPic" />
+                            <Label className="col-3" for="image">Upload Picture/GIF</Label>
+                            <Input className="col-9" type="file" name="image" id="image" onChange={(e) => onChange(e)} />
                             <FormText className="col-12" color="black">
                                 Suggested size 400x400 pixels  
                             </FormText>
                         </FormGroup>
                         <br /><br />
                         <div className="flex-row justify-content-between w-100">
-                            <Button className="bg-success">Add/Update Command</Button>{' '}
+                            <Button className="bg-success" onClick={ () => updateCommand() } >Update Command</Button>{' '}
                             <Button className="bg-danger">Delete Command</Button>
                         </div>
                     </Form>
