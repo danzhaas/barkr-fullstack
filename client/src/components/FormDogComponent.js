@@ -163,36 +163,36 @@ function HomeForm({ context: { chosenDog, chooseDog, dogId } }) {
 // ╚════██║██╔═══╝ ██╔══╝  ██╔══██║██╔═██╗ 
 // ███████║██║     ███████╗██║  ██║██║  ██╗
 // ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
-                                        
+
 const CommandsList = ({ commands, setActiveCommand}) => {
 
-    return(
-        commands.map(command => {
-            return(
-                <div key={command.id} className="w-100">
-                    <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
-                        <h2 className="my-auto ml-2 text-primary">{command.name}</h2>
-                    </Button>
-                </div>
-            )
-        })
-    )
+    // console.log(commands);
+    // const theCommands = commands.map((command) => {
+    //     return(
+    //         <div key={command.id} className="w-100">
+    //             <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
+    //                 <h2 className="my-auto ml-2 text-primary">{command.commandName}</h2>
+    //             </Button>
+    //         </div>
+    //     )
+    // })
+    // return theCommands;
+    return commands.map((command) => {
+        return(
+            <div key={command.id} className="w-100">
+                <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
+                    <h2 className="my-auto ml-2 text-primary">{command.commandName}</h2>
+                </Button>
+            </div>
+        )
+    })
+
 }
 
-function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
+function SpeakForm({ context: { chosenDog } }) {
     
     const [ activeCommand, setActiveCommand ] = useState('0');
-    const [ updatedCommandsList, updateCommands ] = useState(
-        [...chosenDog.commands]
-        // [
-        //     {
-        //         "id":0,
-        //         "commandName":"My First Command",
-        //         "image":"",
-        //         "description":"The first trick I can do"
-        //     }
-        // ]
-    );
+    const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
     const [ formData, setFormData ] = useState({
         "id":0,
         "commandName":"My First Command",
@@ -201,17 +201,12 @@ function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
     });
 
     useEffect(() => {
-        if (!chosenDog) chooseDog(dogId);
 
-        // const {
-        //     originalCommandsList
-        // } = chosenDog;
+        updateCommands(
+            [...chosenDog.commands]
+        );
 
-        updateCommands({
-            commands:chosenDog.commands
-        });
-
-        const {
+        var {
             id,
             commandName,
             image,
@@ -219,15 +214,13 @@ function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
         } = updatedCommandsList[activeCommand];
 
         setFormData({
-            command: {
-                id,
-                commandName,
-                image,
-                description
-            }
+            id:id,
+            commandName:commandName,
+            image:image,
+            description:description
         });
-
-    }, [ activeCommand, setActiveCommand, updatedCommandsList, updateCommands ])
+    }, [ activeCommand, updateCommands ]
+    );
 
     var {
         id,
@@ -250,12 +243,11 @@ function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
     }
 
     function updateCommand () {
-        const commandUpdate = updatedCommandsList.concat({
-            ...formData
-        });
-        updateCommands({
-            commandUpdate
-        })
+        const newCommand = {...formData};
+        const commandUpdate = [...updatedCommandsList, newCommand];
+        updateCommands(
+            [...commandUpdate]
+        )
     }
 
     return (
@@ -269,7 +261,7 @@ function SpeakForm({ context: { chosenDog, chooseDog, dogId } }) {
                         </Button>
                     </div>
                     <h2>Known Commands</h2>
-                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} />
+                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} chosenDog={chosenDog} />
                 </div>
                 <div className="col-8">
                     <Form>
