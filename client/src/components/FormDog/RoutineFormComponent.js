@@ -39,8 +39,7 @@ function RoutineFormComponent({ context: { chosenDog } }) {
             detail:detail
         });
 
-    }, [ activeRoutine, updateRoutines ]
-    );
+    }, [ activeRoutine, updateRoutines, updatedRoutinesList ]);
 
     var {
         id,
@@ -79,7 +78,7 @@ function RoutineFormComponent({ context: { chosenDog } }) {
                         </Button>
                     </div>
                     <h2>Routine</h2>
-                    <RoutineList routines={chosenDog.routine} setActiveRoutine={setActiveRoutine} />
+                    <RoutineList routines={updatedRoutinesList} setActiveRoutine={setActiveRoutine} />
                 </div>
                 <div className="col-8">
                     <Form>

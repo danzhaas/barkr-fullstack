@@ -79,7 +79,7 @@ function SuppliesFormComponent({ context: { chosenDog } }) {
                         </Button>
                     </div>
                     <h2>Supplies</h2>
-                    <SuppliesList supplies={chosenDog.supplies} setActiveSupplies={setActiveSupplies} />
+                    <SuppliesList supplies={updatedSuppliesList} setActiveSupplies={setActiveSupplies} />
                 </div>
                 <div className="col-8">
                     <Form>

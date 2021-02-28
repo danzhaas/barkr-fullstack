@@ -80,7 +80,7 @@ function NotesFormComponent({ context: { chosenDog } }) {
                         </Button>
                     </div>
                     <h2>Notes</h2>
-                    <NotesList notes={chosenDog.notes} setActiveNote={setActiveNote} />
+                    <NotesList notes={updatedNotesList} setActiveNote={setActiveNote} />
                 </div>
                 <div className="col-8">
                     <Form>
