@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import UserHeader from './UserHeaderComponent';
 import {Consumer} from "./configContext";
 import Footer from './FooterComponent';
-import SpeakFormComponent from './FormDog/SpeakFormComponent';
 import Autosuggest from 'react-autosuggest';
 import dogBreeds from 'dog-breeds';
 
@@ -615,7 +614,7 @@ const DogTabs = ({ context }) => {
                 <TabPane tabId="2">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <SpeakFormComponent context={context} />
+                            <SpeakForm context={context} />
                         </Col>
                     </Row>
                 </TabPane>
