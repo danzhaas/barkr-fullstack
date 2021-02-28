@@ -6,52 +6,6 @@ import SuppliesFormComponent from './SuppliesFormComponent';
 import NotesFormComponent from './NotesFormComponent';
 
 
-// const RoutineList = ({context: { chosenDog }, setActiveRoutine }) => {
-
-//     return(
-//         chosenDog.routine.map(routine => {
-//             return(
-//                 <div key={routine.id} className="w-100">
-//                     <Button className="bg-white w-100" onClick={() => setActiveRoutine(routine.id)}>
-//                         <h2 className="my-auto ml-2 text-primary">{routine.detail}</h2>
-//                     </Button>
-//                 </div>
-//             )
-//         })
-//     )
-// }
-
-// const SuppliesList = ({context: { chosenDog }, setActiveSupplies }) => {
-
-//     return(
-//         chosenDog.supplies.map(supplies => {
-//             return(
-//                 <div key={supplies.id} className="w-100">
-//                     <Button className="bg-white w-100" onClick={() => setActiveSupplies(supplies.id)}>
-//                         <h2 className="my-auto ml-2 text-primary">{supplies.detail}</h2>
-//                     </Button>
-//                 </div>
-//             )
-//         })
-//     )
-// }
-
-// const NotesList = ({context: { chosenDog }, setActiveNote }) => {
-
-//     return(
-//         chosenDog.notes.map(note => {
-//             return(
-//                 <div key={note.id} className="w-100">
-//                     <Button className="bg-white w-100" onClick={() => setActiveNote(note.id)}>
-//                         <h2 className="my-auto ml-2 text-primary">{note.content}</h2>
-//                     </Button>
-//                 </div>
-//             )
-//         })
-//     )
-// }
-
-
 function CareFormComponent({ context }) {
     
     const [activeTab, setActiveTab] = useState('1');

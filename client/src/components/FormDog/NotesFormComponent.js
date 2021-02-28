@@ -20,62 +20,53 @@ const NotesList = ({ notes, setActiveNote }) => {
 
 function NotesFormComponent({ context: { chosenDog } }) {
     
-    const [activeNote, setActiveNote] = useState('0');
-    // const [ activeCommand, setActiveCommand ] = useState('0');
-    // const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
-    // const [ formData, setFormData ] = useState({
-    //     "id":0,
-    //     "commandName":"My First Command",
-    //     "image":"",
-    //     "description":"The first trick I can do"
-    // });
+    const [ activeNote, setActiveNote ] = useState('0');
+    const [ updatedNotesList, updateNotes ] = useState([...chosenDog.notes]);
+    const [ formData, setFormData ] = useState({
+        "id":0,
+        "commandName":"My First Command",
+        "image":"",
+        "description":"The first trick I can do"
+    });
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     var {
-    //         id,
-    //         commandName,
-    //         image,
-    //         description
-    //     } = updatedCommandsList[activeCommand];
+        var {
+            id,
+            content
+        } = updatedNotesList[activeNote];
 
-    //     setFormData({
-    //         id:id,
-    //         commandName:commandName,
-    //         image:image,
-    //         description:description
-    //     });
-    // }, [ activeCommand, updateCommands ]
-    // );
+        setFormData({
+            id:id,
+            content:content
+        });
+    }, [ activeNote, updateNotes ]
+    );
 
-    // var {
-    //     id,
-    //     commandName,
-    //     image,
-    //     description
-    // } = formData;
+    var {
+        id,
+        content
+    } = formData;
 
-    // const onChange = e => {
-    //     setFormData({ ...formData, [e.target.name]: e.target.value })
-    // }
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
 
-    // function addNewCommand () {
-    //     setFormData({
-    //         id:updatedCommandsList.length,
-    //         commandName:"",
-    //         image:"",
-    //         description:""
-    //     });
-    //     chosenDog.commands.push(formData);
-    // }
+    function addNewNote () {
+        setFormData({
+            id:updatedNotesList.length,
+            content:""
+        });
+        chosenDog.notes.push(formData);
+    }
 
-    // function updateCommand () {
-    //     const newCommand = {...formData};
-    //     const commandUpdate = [...updatedCommandsList, newCommand];
-    //     updateCommands(
-    //         [...commandUpdate]
-    //     )
-    // }
+    function updateNote () {
+        const newNote = {...formData};
+        const noteUpdate = [...updatedNotesList, newNote];
+        updateNotes(
+            [...noteUpdate]
+        )
+    }
 
 
     return (
@@ -84,7 +75,7 @@ function NotesFormComponent({ context: { chosenDog } }) {
             <Row className="bg-white border-0">
                 <div className="col-4">
                     <div className="w-100">
-                        <Button className="bg-white w-100" >
+                        <Button className="bg-white w-100" onClick={ () => addNewNote() } >
                             <h2 className="my-auto ml-2 text-primary">Add New Note</h2>
                         </Button>
                     </div>
@@ -93,15 +84,19 @@ function NotesFormComponent({ context: { chosenDog } }) {
                 </div>
                 <div className="col-8">
                     <Form>
+                        <p>Note # {formData.id}</p>
                         <FormGroup className="bg-white border-0" row>
-                            <Label for="noteContent" sm={3}>Note</Label>
+                            <Label for="content" sm={3}>Content</Label>
                             <Col sm={9}>
-                                <Input type="text" name="noteContent" id="noteContent" value={ chosenDog.notes[activeNote].content} />
+                                <Input type="text" name="content" id="content" 
+                                    value={ content } 
+                                    onChange={(e) => onChange(e)} 
+                                />
                             </Col>
                         </FormGroup>
                         <br /><br />
                         <div className="flex-row justify-content-between w-100">
-                            <Button className="bg-success">Add/Update Note</Button>{' '}
+                            <Button className="bg-success" onClick={ () => updateNote() } >Add/Update Note</Button>{' '}
                             <Button className="bg-danger">Delete Note</Button>
                         </div>
                     </Form>

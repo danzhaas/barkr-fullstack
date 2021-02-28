@@ -21,62 +21,51 @@ const SuppliesList = ({ supplies, setActiveSupplies }) => {
 
 function SuppliesFormComponent({ context: { chosenDog } }) {
     
-    const [activeSupplies, setActiveSupplies] = useState('0');
-    // const [ activeCommand, setActiveCommand ] = useState('0');
-    // const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
-    // const [ formData, setFormData ] = useState({
-    //     "id":0,
-    //     "commandName":"My First Command",
-    //     "image":"",
-    //     "description":"The first trick I can do"
-    // });
+    const [ activeSupplies, setActiveSupplies ] = useState('0');
+    const [ updatedSuppliesList, updateSupplies ] = useState([...chosenDog.supplies]);
+    const [ formData, setFormData ] = useState({
+        "id":0,
+        "detail":"64 Slices of American Cheese"
+    });
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     var {
-    //         id,
-    //         commandName,
-    //         image,
-    //         description
-    //     } = updatedCommandsList[activeCommand];
+        var {
+            id,
+            detail
+        } = updatedSuppliesList[activeSupplies];
 
-    //     setFormData({
-    //         id:id,
-    //         commandName:commandName,
-    //         image:image,
-    //         description:description
-    //     });
-    // }, [ activeCommand, updateCommands ]
-    // );
+        setFormData({
+            id:id,
+            detail:detail
+        });
+    }, [ activeSupplies, updateSupplies ]
+    );
 
-    // var {
-    //     id,
-    //     commandName,
-    //     image,
-    //     description
-    // } = formData;
+    var {
+        id,
+        detail
+    } = formData;
 
-    // const onChange = e => {
-    //     setFormData({ ...formData, [e.target.name]: e.target.value })
-    // }
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
 
-    // function addNewCommand () {
-    //     setFormData({
-    //         id:updatedCommandsList.length,
-    //         commandName:"",
-    //         image:"",
-    //         description:""
-    //     });
-    //     chosenDog.commands.push(formData);
-    // }
+    function addNewSupply () {
+        setFormData({
+            id:updatedSuppliesList.length,
+            detail:""
+        });
+        chosenDog.supplies.push(formData);
+    }
 
-    // function updateCommand () {
-    //     const newCommand = {...formData};
-    //     const commandUpdate = [...updatedCommandsList, newCommand];
-    //     updateCommands(
-    //         [...commandUpdate]
-    //     )
-    // }
+    function updateSupply () {
+        const newSupplies = {...formData};
+        const supplyUpdate = [...updatedSuppliesList, newSupplies];
+        updateSupplies(
+            [...supplyUpdate]
+        )
+    }
 
 
     return (
@@ -85,7 +74,7 @@ function SuppliesFormComponent({ context: { chosenDog } }) {
             <Row className="bg-white border-0">
                 <div className="col-4">
                     <div className="w-100">
-                        <Button className="bg-white w-100" >
+                        <Button className="bg-white w-100" onClick={ () => addNewSupply() } >
                             <h2 className="my-auto ml-2 text-primary">Add New Supplies</h2>
                         </Button>
                     </div>
@@ -94,16 +83,20 @@ function SuppliesFormComponent({ context: { chosenDog } }) {
                 </div>
                 <div className="col-8">
                     <Form>
+                        <p>Supply Item # {formData.id}</p>
                         <FormGroup className="bg-white border-0" row>
-                            <Label for="suppliesDetail" sm={3}>Supplies</Label>
+                            <Label for="detail" sm={3}>Supplies</Label>
                             <Col sm={9}>
-                                <Input type="text" name="suppliesDetail" id="suppliesDetail" value={ chosenDog.supplies[activeSupplies].detail} />
+                                <Input type="text" name="detail" id="detail" 
+                                    value={ detail } 
+                                    onChange={(e) => onChange(e)} 
+                                />
                             </Col>
                         </FormGroup>
 
                         <br /><br />
                         <div className="flex-row justify-content-between w-100">
-                            <Button className="bg-success">Add/Update Supplies Detail</Button>{' '}
+                            <Button className="bg-success" onClick={ () => updateSupply() } >Add/Update Supplies Detail</Button>{' '}
                             <Button className="bg-danger">Delete Supplies Detail</Button>
                         </div>
                     </Form>

@@ -20,62 +20,52 @@ const RoutineList = ({ routines, setActiveRoutine }) => {
 
 function RoutineFormComponent({ context: { chosenDog } }) {
     
-    const [activeRoutine, setActiveRoutine] = useState('0');
-    // const [ activeCommand, setActiveCommand ] = useState('0');
-    // const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
-    // const [ formData, setFormData ] = useState({
-    //     "id":0,
-    //     "commandName":"My First Command",
-    //     "image":"",
-    //     "description":"The first trick I can do"
-    // });
+    const [ activeRoutine, setActiveRoutine ] = useState('0');
+    const [ updatedRoutinesList, updateRoutines ] = useState([...chosenDog.routine]);
+    const [ formData, setFormData ] = useState({
+        "id":0,
+        "detail": "12:00 AM - Eat 64 slices of American Cheese"
+    });
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     var {
-    //         id,
-    //         commandName,
-    //         image,
-    //         description
-    //     } = updatedCommandsList[activeCommand];
+        var {
+            id,
+            detail
+        } = updatedRoutinesList[activeRoutine];
 
-    //     setFormData({
-    //         id:id,
-    //         commandName:commandName,
-    //         image:image,
-    //         description:description
-    //     });
-    // }, [ activeCommand, updateCommands ]
-    // );
+        setFormData({
+            id:id,
+            detail:detail
+        });
 
-    // var {
-    //     id,
-    //     commandName,
-    //     image,
-    //     description
-    // } = formData;
+    }, [ activeRoutine, updateRoutines ]
+    );
 
-    // const onChange = e => {
-    //     setFormData({ ...formData, [e.target.name]: e.target.value })
-    // }
+    var {
+        id,
+        detail
+    } = formData;
 
-    // function addNewCommand () {
-    //     setFormData({
-    //         id:updatedCommandsList.length,
-    //         commandName:"",
-    //         image:"",
-    //         description:""
-    //     });
-    //     chosenDog.commands.push(formData);
-    // }
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    }
 
-    // function updateCommand () {
-    //     const newCommand = {...formData};
-    //     const commandUpdate = [...updatedCommandsList, newCommand];
-    //     updateCommands(
-    //         [...commandUpdate]
-    //     )
-    // }
+    function addNewRoutine () {
+        setFormData({
+            id:updatedRoutinesList.length,
+            detail:""
+        });
+        chosenDog.routine.push(formData);
+    }
+
+    function updateRoutine () {
+        const newRoutine = {...formData};
+        const routineUpdate = [...updatedRoutinesList, newRoutine];
+        updateRoutines(
+            [...routineUpdate]
+        )
+    }
 
 
     return (
@@ -84,8 +74,8 @@ function RoutineFormComponent({ context: { chosenDog } }) {
             <Row className="bg-white border-0">
                 <div className="col-4">
                     <div className="w-100">
-                        <Button className="bg-white w-100" >
-                            <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
+                        <Button className="bg-white w-100" onClick={ () => addNewRoutine() } >
+                            <h2 className="my-auto ml-2 text-primary" >Add New Routine</h2>
                         </Button>
                     </div>
                     <h2>Routine</h2>
@@ -93,15 +83,19 @@ function RoutineFormComponent({ context: { chosenDog } }) {
                 </div>
                 <div className="col-8">
                     <Form>
+                        <p>Routine Item # {formData.id}</p>
                         <FormGroup className="bg-white border-0" row>
-                            <Label for="routineDetail" sm={3}>Detail</Label>
+                            <Label for="detail" sm={3}>Detail</Label>
                             <Col sm={9}>
-                                <Input type="text" name="routineDetail" id="routineDetail" value={ chosenDog.routine[activeRoutine].detail} />
+                                <Input type="text" name="detail" id="detail" 
+                                    value={ detail } 
+                                    onChange={(e) => onChange(e)} 
+                                />
                             </Col>
                         </FormGroup>
                         <br /><br />
                         <div className="flex-row justify-content-between w-100">
-                            <Button className="bg-success">Add/Update Routine Detail</Button>{' '}
+                            <Button className="bg-success" onClick={ () => updateRoutine() } >Add/Update Routine Detail</Button>{' '}
                             <Button className="bg-danger">Delete Routine Detail</Button>
                         </div>
                     </Form>
