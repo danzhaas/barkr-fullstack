@@ -6,6 +6,7 @@ import UserHeader from './UserHeaderComponent';
 import {Consumer} from "./configContext";
 import Footer from './FooterComponent';
 import SpeakFormComponent from './FormDog/SpeakFormComponent';
+import CareFormComponent from './FormDog/CareFormComponent';
 import Autosuggest from 'react-autosuggest';
 import dogBreeds from 'dog-breeds';
 
@@ -165,145 +166,145 @@ function HomeForm({ context: { chosenDog, chooseDog, dogId } }) {
 // ███████║██║     ███████╗██║  ██║██║  ██╗
 // ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
 
-const CommandsList = ({ commands, setActiveCommand }) => {
+// const CommandsList = ({ commands, setActiveCommand }) => {
 
-    return commands.map((command) => {
-        return(
-            <div key={command.id} className="w-100">
-                <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
-                    <h2 className="my-auto ml-2 text-primary">{command.commandName}</h2>
-                </Button>
-            </div>
-        )
-    })
+//     return commands.map((command) => {
+//         return(
+//             <div key={command.id} className="w-100">
+//                 <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
+//                     <h2 className="my-auto ml-2 text-primary">{command.commandName}</h2>
+//                 </Button>
+//             </div>
+//         )
+//     })
 
-}
+// }
 
-function SpeakForm({ context: { chosenDog } }) {
+// function SpeakForm({ context: { chosenDog } }) {
     
-    const [ activeCommand, setActiveCommand ] = useState('0');
-    const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
-    const [ formData, setFormData ] = useState({
-        "id":0,
-        "commandName":"My First Command",
-        "image":"",
-        "description":"The first trick I can do"
-    });
+//     const [ activeCommand, setActiveCommand ] = useState('0');
+//     const [ updatedCommandsList, updateCommands ] = useState([...chosenDog.commands]);
+//     const [ formData, setFormData ] = useState({
+//         "id":0,
+//         "commandName":"My First Command",
+//         "image":"",
+//         "description":"The first trick I can do"
+//     });
 
-    useEffect(() => {
+//     useEffect(() => {
 
-        var {
-            id,
-            commandName,
-            image,
-            description
-        } = updatedCommandsList[activeCommand];
+//         var {
+//             id,
+//             commandName,
+//             image,
+//             description
+//         } = updatedCommandsList[activeCommand];
 
-        setFormData({
-            id:id,
-            commandName:commandName,
-            image:image,
-            description:description
-        });
-    }, [ activeCommand, updateCommands ]
-    );
+//         setFormData({
+//             id:id,
+//             commandName:commandName,
+//             image:image,
+//             description:description
+//         });
+//     }, [ activeCommand, updateCommands ]
+//     );
 
-    var {
-        id,
-        commandName,
-        image,
-        description
-    } = formData;
+//     var {
+//         id,
+//         commandName,
+//         image,
+//         description
+//     } = formData;
 
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+//     const onChange = e => {
+//         setFormData({ ...formData, [e.target.name]: e.target.value })
+//     }
 
-    function addNewCommand () {
-        setFormData({
-            id:updatedCommandsList.length,
-            commandName:"",
-            image:"",
-            description:""
-        });
-        chosenDog.commands.push(formData);
-    }
+//     function addNewCommand () {
+//         setFormData({
+//             id:updatedCommandsList.length,
+//             commandName:"",
+//             image:"",
+//             description:""
+//         });
+//         chosenDog.commands.push(formData);
+//     }
 
-    function updateCommand () {
-        const newCommand = {...formData};
-        const commandUpdate = [...updatedCommandsList, newCommand];
-        updateCommands(
-            [...commandUpdate]
-        )
-    }
+//     function updateCommand () {
+//         const newCommand = {...formData};
+//         const commandUpdate = [...updatedCommandsList, newCommand];
+//         updateCommands(
+//             [...commandUpdate]
+//         )
+//     }
 
-    return (
-        <div className="bg-white border-0">
-            <h1>Commands</h1>
-            <Row className="bg-white border-0 py-3">
-                <div className="col-4">
-                    <div className="w-100">
-                        <Button className="bg-white w-100" onClick={ () => addNewCommand() } >
-                            <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
-                        </Button>
-                    </div>
-                    <h2>Known Commands</h2>
-                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} />
-                </div>
-                <div className="col-8">
-                    <Form>
-                        <p>Command # {formData.id}</p>
-                        <FormGroup className="bg-white border-0" row>
-                            <Label for="commandName" sm={3}>Command Name</Label>
-                            <Col sm={9}>
-                                <Input type="text" name="commandName" id="commandName" value={ commandName } onChange={(e) => onChange(e)} />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup className="bg-white border-0" row>
-                            <Label for="name" sm={3}>Description</Label>
-                            <Col sm={9}>
-                                <Input type="text" name="description" id="description" value={ description } onChange={(e) => onChange(e)} />
-                            </Col>
-                        </FormGroup>
-                        <FormGroup tag="fieldset" className="bg-white border-0" row>
-                            <legend className="col-form-label">Choose Image</legend>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="radio" name="photoSource" />{' '}
-                                    Upload a picture or GIF
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="radio" name="photoSource" />{' '}
-                                    Use Stock Photo
-                                </Label>
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="radio" name="photoSource" />{' '}
-                                    Leave blank for now
-                                </Label>
-                            </FormGroup>
-                        </FormGroup>
-                        <FormGroup className="bg-white border-0" className="d-flex flex-row flex-wrap">
-                            <Label className="col-3" for="image">Upload Picture/GIF</Label>
-                            <Input className="col-9" type="file" name="image" id="image" onChange={(e) => onChange(e)} />
-                            <FormText className="col-12" color="black">
-                                Suggested size 400x400 pixels  
-                            </FormText>
-                        </FormGroup>
-                        <br /><br />
-                        <div className="flex-row justify-content-between w-100">
-                            <Button className="bg-success" onClick={ () => updateCommand() } >Update Command</Button>{' '}
-                            <Button className="bg-danger">Delete Command</Button>
-                        </div>
-                    </Form>
-                </div>
-            </Row>
-        </div>
-    )
-}
+//     return (
+//         <div className="bg-white border-0">
+//             <h1>Commands</h1>
+//             <Row className="bg-white border-0 py-3">
+//                 <div className="col-4">
+//                     <div className="w-100">
+//                         <Button className="bg-white w-100" onClick={ () => addNewCommand() } >
+//                             <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
+//                         </Button>
+//                     </div>
+//                     <h2>Known Commands</h2>
+//                     <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} />
+//                 </div>
+//                 <div className="col-8">
+//                     <Form>
+//                         <p>Command # {formData.id}</p>
+//                         <FormGroup className="bg-white border-0" row>
+//                             <Label for="commandName" sm={3}>Command Name</Label>
+//                             <Col sm={9}>
+//                                 <Input type="text" name="commandName" id="commandName" value={ commandName } onChange={(e) => onChange(e)} />
+//                             </Col>
+//                         </FormGroup>
+//                         <FormGroup className="bg-white border-0" row>
+//                             <Label for="name" sm={3}>Description</Label>
+//                             <Col sm={9}>
+//                                 <Input type="text" name="description" id="description" value={ description } onChange={(e) => onChange(e)} />
+//                             </Col>
+//                         </FormGroup>
+//                         <FormGroup tag="fieldset" className="bg-white border-0" row>
+//                             <legend className="col-form-label">Choose Image</legend>
+//                             <FormGroup check>
+//                                 <Label check>
+//                                     <Input type="radio" name="photoSource" />{' '}
+//                                     Upload a picture or GIF
+//                                 </Label>
+//                             </FormGroup>
+//                             <FormGroup check>
+//                                 <Label check>
+//                                     <Input type="radio" name="photoSource" />{' '}
+//                                     Use Stock Photo
+//                                 </Label>
+//                             </FormGroup>
+//                             <FormGroup check>
+//                                 <Label check>
+//                                     <Input type="radio" name="photoSource" />{' '}
+//                                     Leave blank for now
+//                                 </Label>
+//                             </FormGroup>
+//                         </FormGroup>
+//                         <FormGroup className="bg-white border-0" className="d-flex flex-row flex-wrap">
+//                             <Label className="col-3" for="image">Upload Picture/GIF</Label>
+//                             <Input className="col-9" type="file" name="image" id="image" onChange={(e) => onChange(e)} />
+//                             <FormText className="col-12" color="black">
+//                                 Suggested size 400x400 pixels  
+//                             </FormText>
+//                         </FormGroup>
+//                         <br /><br />
+//                         <div className="flex-row justify-content-between w-100">
+//                             <Button className="bg-success" onClick={ () => updateCommand() } >Update Command</Button>{' '}
+//                             <Button className="bg-danger">Delete Command</Button>
+//                         </div>
+//                     </Form>
+//                 </div>
+//             </Row>
+//         </div>
+//     )
+// }
 
 
 //  █████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗   ██╗██████╗ ███████╗
@@ -410,146 +411,146 @@ const NotesList = ({context: { chosenDog }, setActiveNote }) => {
     )
 }
 
-function CareForm({ context }) {
+// function CareForm({ context }) {
 
-    const [activeTab, setActiveTab] = useState('1');
+//     const [activeTab, setActiveTab] = useState('1');
 
-    const [activeRoutine, setActiveRoutine] = useState('0');
-    const [activeSupplies, setActiveSupplies] = useState('0');
-    const [activeNote, setActiveNote] = useState('0');
+//     const [activeRoutine, setActiveRoutine] = useState('0');
+//     const [activeSupplies, setActiveSupplies] = useState('0');
+//     const [activeNote, setActiveNote] = useState('0');
 
 
-    const toggle = tab => {
-        if (activeTab !== tab) setActiveTab(tab);
-    }
+//     const toggle = tab => {
+//         if (activeTab !== tab) setActiveTab(tab);
+//     }
 
-    return (
-        <div className="bg-white border-0">
-            <h1>Care Categories</h1>
-            <div id="dogForm" >
-                <Nav tabs>
-                    <NavItem id="barkr-tab">
-                        <NavLink
-                            className={classnames({ active: activeTab === '1' })}
-                            onClick={() => { toggle('1'); }}
-                        >
-                            <h2>Routine</h2>
-                        </NavLink>
-                    </NavItem>
-                    <NavItem id="barkr-tab">
-                        <NavLink
-                            className={classnames({ active: activeTab === '2' })}
-                            onClick={() => { toggle('2'); }}
-                        >
-                            <h2>Supplies</h2>
-                        </NavLink>
-                    </NavItem>
-                    <NavItem id="barkr-tab">
-                        <NavLink
-                            className={classnames({ active: activeTab === '3' })}
-                            onClick={() => { toggle('3'); }}
-                        >
-                            <h2>Notes</h2>
-                        </NavLink>
-                    </NavItem>
-                </Nav>
+//     return (
+//         <div className="bg-white border-0">
+//             <h1>Care Categories</h1>
+//             <div id="dogForm" >
+//                 <Nav tabs>
+//                     <NavItem id="barkr-tab">
+//                         <NavLink
+//                             className={classnames({ active: activeTab === '1' })}
+//                             onClick={() => { toggle('1'); }}
+//                         >
+//                             <h2>Routine</h2>
+//                         </NavLink>
+//                     </NavItem>
+//                     <NavItem id="barkr-tab">
+//                         <NavLink
+//                             className={classnames({ active: activeTab === '2' })}
+//                             onClick={() => { toggle('2'); }}
+//                         >
+//                             <h2>Supplies</h2>
+//                         </NavLink>
+//                     </NavItem>
+//                     <NavItem id="barkr-tab">
+//                         <NavLink
+//                             className={classnames({ active: activeTab === '3' })}
+//                             onClick={() => { toggle('3'); }}
+//                         >
+//                             <h2>Notes</h2>
+//                         </NavLink>
+//                     </NavItem>
+//                 </Nav>
 
-                <TabContent activeTab={activeTab}>
-                    <TabPane tabId="1">
-                        <h1>Routine</h1>
-                        <Row className="bg-white border-0">
-                            <div className="col-4">
-                                <div className="w-100">
-                                    <Button className="bg-white w-100" >
-                                        <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
-                                    </Button>
-                                </div>
-                                <h2>Routine</h2>
-                                <RoutineList context={context} setActiveRoutine={setActiveRoutine} />
-                            </div>
-                            <div className="col-8">
-                                <Form>
-                                    <FormGroup className="bg-white border-0" row>
-                                        <Label for="routineDetail" sm={3}>Detail</Label>
-                                        <Col sm={9}>
-                                            <Input type="text" name="routineDetail" id="routineDetail" value={ context.chosenDog.routine[activeRoutine].detail} />
-                                        </Col>
-                                    </FormGroup>
-                                    <br /><br />
-                                    <div className="flex-row justify-content-between w-100">
-                                        <Button className="bg-success">Add/Update Routine Detail</Button>{' '}
-                                        <Button className="bg-danger">Delete Routine Detail</Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        </Row>
-                    </TabPane>
+//                 <TabContent activeTab={activeTab}>
+//                     <TabPane tabId="1">
+//                         <h1>Routine</h1>
+//                         <Row className="bg-white border-0">
+//                             <div className="col-4">
+//                                 <div className="w-100">
+//                                     <Button className="bg-white w-100" >
+//                                         <h2 className="my-auto ml-2 text-primary">Add New Command</h2>
+//                                     </Button>
+//                                 </div>
+//                                 <h2>Routine</h2>
+//                                 <RoutineList context={context} setActiveRoutine={setActiveRoutine} />
+//                             </div>
+//                             <div className="col-8">
+//                                 <Form>
+//                                     <FormGroup className="bg-white border-0" row>
+//                                         <Label for="routineDetail" sm={3}>Detail</Label>
+//                                         <Col sm={9}>
+//                                             <Input type="text" name="routineDetail" id="routineDetail" value={ context.chosenDog.routine[activeRoutine].detail} />
+//                                         </Col>
+//                                     </FormGroup>
+//                                     <br /><br />
+//                                     <div className="flex-row justify-content-between w-100">
+//                                         <Button className="bg-success">Add/Update Routine Detail</Button>{' '}
+//                                         <Button className="bg-danger">Delete Routine Detail</Button>
+//                                     </div>
+//                                 </Form>
+//                             </div>
+//                         </Row>
+//                     </TabPane>
 
-                    <TabPane tabId="2">
-                        <h1>Supplies</h1>
-                        <Row className="bg-white border-0">
-                            <div className="col-4">
-                                <div className="w-100">
-                                    <Button className="bg-white w-100" >
-                                        <h2 className="my-auto ml-2 text-primary">Add New Supplies</h2>
-                                    </Button>
-                                </div>
-                                <h2>Supplies</h2>
-                                <SuppliesList context={context} setActiveSupplies={setActiveSupplies} />
-                            </div>
-                            <div className="col-8">
-                                <Form>
-                                    <FormGroup className="bg-white border-0" row>
-                                        <Label for="suppliesDetail" sm={3}>Supplies</Label>
-                                        <Col sm={9}>
-                                            <Input type="text" name="suppliesDetail" id="suppliesDetail" value={ context.chosenDog.supplies[activeSupplies].detail} />
-                                        </Col>
-                                    </FormGroup>
+//                     <TabPane tabId="2">
+//                         <h1>Supplies</h1>
+//                         <Row className="bg-white border-0">
+//                             <div className="col-4">
+//                                 <div className="w-100">
+//                                     <Button className="bg-white w-100" >
+//                                         <h2 className="my-auto ml-2 text-primary">Add New Supplies</h2>
+//                                     </Button>
+//                                 </div>
+//                                 <h2>Supplies</h2>
+//                                 <SuppliesList context={context} setActiveSupplies={setActiveSupplies} />
+//                             </div>
+//                             <div className="col-8">
+//                                 <Form>
+//                                     <FormGroup className="bg-white border-0" row>
+//                                         <Label for="suppliesDetail" sm={3}>Supplies</Label>
+//                                         <Col sm={9}>
+//                                             <Input type="text" name="suppliesDetail" id="suppliesDetail" value={ context.chosenDog.supplies[activeSupplies].detail} />
+//                                         </Col>
+//                                     </FormGroup>
 
-                                    <br /><br />
-                                    <div className="flex-row justify-content-between w-100">
-                                        <Button className="bg-success">Add/Update Supplies Detail</Button>{' '}
-                                        <Button className="bg-danger">Delete Supplies Detail</Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        </Row>
-                    </TabPane>
+//                                     <br /><br />
+//                                     <div className="flex-row justify-content-between w-100">
+//                                         <Button className="bg-success">Add/Update Supplies Detail</Button>{' '}
+//                                         <Button className="bg-danger">Delete Supplies Detail</Button>
+//                                     </div>
+//                                 </Form>
+//                             </div>
+//                         </Row>
+//                     </TabPane>
 
-                    <TabPane tabId="3">
-                        <h1>Notes</h1>
-                        <Row className="bg-white border-0">
-                            <div className="col-4">
-                                <div className="w-100">
-                                    <Button className="bg-white w-100" >
-                                        <h2 className="my-auto ml-2 text-primary">Add New Note</h2>
-                                    </Button>
-                                </div>
-                                <h2>Notes</h2>
-                                <NotesList context={context} setActiveNote={setActiveNote} />
-                            </div>
-                            <div className="col-8">
-                                <Form>
-                                    <FormGroup className="bg-white border-0" row>
-                                        <Label for="noteContent" sm={3}>Note</Label>
-                                        <Col sm={9}>
-                                            <Input type="text" name="noteContent" id="noteContent" value={ context.chosenDog.notes[activeNote].content} />
-                                        </Col>
-                                    </FormGroup>
-                                    <br /><br />
-                                    <div className="flex-row justify-content-between w-100">
-                                        <Button className="bg-success">Add/Update Note</Button>{' '}
-                                        <Button className="bg-danger">Delete Note</Button>
-                                    </div>
-                                </Form>
-                            </div>
-                        </Row>
-                    </TabPane>
-                </TabContent>
-            </div>
-        </div>
-    );
-}
+//                     <TabPane tabId="3">
+//                         <h1>Notes</h1>
+//                         <Row className="bg-white border-0">
+//                             <div className="col-4">
+//                                 <div className="w-100">
+//                                     <Button className="bg-white w-100" >
+//                                         <h2 className="my-auto ml-2 text-primary">Add New Note</h2>
+//                                     </Button>
+//                                 </div>
+//                                 <h2>Notes</h2>
+//                                 <NotesList context={context} setActiveNote={setActiveNote} />
+//                             </div>
+//                             <div className="col-8">
+//                                 <Form>
+//                                     <FormGroup className="bg-white border-0" row>
+//                                         <Label for="noteContent" sm={3}>Note</Label>
+//                                         <Col sm={9}>
+//                                             <Input type="text" name="noteContent" id="noteContent" value={ context.chosenDog.notes[activeNote].content} />
+//                                         </Col>
+//                                     </FormGroup>
+//                                     <br /><br />
+//                                     <div className="flex-row justify-content-between w-100">
+//                                         <Button className="bg-success">Add/Update Note</Button>{' '}
+//                                         <Button className="bg-danger">Delete Note</Button>
+//                                     </div>
+//                                 </Form>
+//                             </div>
+//                         </Row>
+//                     </TabPane>
+//                 </TabContent>
+//             </div>
+//         </div>
+//     );
+// }
 
 
 // ████████╗ █████╗ ██████╗ ███████╗
@@ -629,7 +630,7 @@ const DogTabs = ({ context }) => {
                 <TabPane tabId="4">
                     <Row className="bg-white border-0">
                         <Col sm="12">
-                            <CareForm context={context} />
+                            <CareFormComponent context={context} />
                         </Col>
                     </Row>
                 </TabPane>
