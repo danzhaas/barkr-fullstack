@@ -166,17 +166,6 @@ function HomeForm({ context: { chosenDog, chooseDog, dogId } }) {
 
 const CommandsList = ({ commands, setActiveCommand}) => {
 
-    // console.log(commands);
-    // const theCommands = commands.map((command) => {
-    //     return(
-    //         <div key={command.id} className="w-100">
-    //             <Button className="bg-white w-100" onClick={() => setActiveCommand(command.id)}>
-    //                 <h2 className="my-auto ml-2 text-primary">{command.commandName}</h2>
-    //             </Button>
-    //         </div>
-    //     )
-    // })
-    // return theCommands;
     return commands.map((command) => {
         return(
             <div key={command.id} className="w-100">
@@ -201,10 +190,6 @@ function SpeakForm({ context: { chosenDog } }) {
     });
 
     useEffect(() => {
-
-        updateCommands(
-            [...chosenDog.commands]
-        );
 
         var {
             id,
@@ -239,7 +224,8 @@ function SpeakForm({ context: { chosenDog } }) {
             commandName:"",
             image:"",
             description:""
-        })
+        });
+        chosenDog.commands.push(formData);
     }
 
     function updateCommand () {
@@ -261,12 +247,13 @@ function SpeakForm({ context: { chosenDog } }) {
                         </Button>
                     </div>
                     <h2>Known Commands</h2>
-                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} chosenDog={chosenDog} />
+                    <CommandsList commands={ updatedCommandsList } setActiveCommand={setActiveCommand} />
                 </div>
                 <div className="col-8">
                     <Form>
+                        <p>Command # {formData.id}</p>
                         <FormGroup className="bg-white border-0" row>
-                            <Label for="commandName" sm={3}>Command</Label>
+                            <Label for="commandName" sm={3}>Command Name</Label>
                             <Col sm={9}>
                                 <Input type="text" name="commandName" id="commandName" value={ commandName } onChange={(e) => onChange(e)} />
                             </Col>
