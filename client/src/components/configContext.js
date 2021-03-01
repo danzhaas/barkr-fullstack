@@ -1,48 +1,40 @@
-import React, { Component, createContext } from "react";
+import React, { useState, createContext } from "react";
 import { DOGS } from '../shared/dogs';
 import { USERS } from '../shared/users';
 
 const { Provider, Consumer } = createContext();
 
-class ConfigProvider extends Component {
-    state = {
-        dogId: 0,
-        userId:0
-    };
+function ConfigProvider (props) {
+    
+    const [chosenDog, updateDog] = useState({});
+    const [chosenUser, updateUser] = useState({});
 
-    chooseDog(id) {
-        this.setState({ dogId: id });
-    };
+    // const [dogId, chooseDog] = useState(0);
+    // const [userId, chooseUser] = useState(0);
 
-    chooseUser(id) {
-        this.setState({ userId: id });
-    };
+    // dogs=DOGS;
+    // users=USERS;
 
-    dogs=DOGS;
-    users=USERS;
-
-    render() {
         
-        this.chooseDog = this.chooseDog.bind(this);
-        this.chooseUser = this.chooseUser.bind(this);
+    return (
+        <Provider
+            value={{
+                // dogs:dogs,
+                // dogId: dogId,
+                // chooseDog: chooseDog,
+                chosenDog: chosenDog,
+                updateDog: updateDog,
 
-        return (
-            <Provider
-                value={{
-                    dogs:this.dogs,
-                    dogId: this.state.dogId,
-                    chooseDog: this.chooseDog,
-                    chosenDog: this.dogs[this.state.dogId],
-                    users:this.users,
-                    userId: this.state.userId,
-                    chooseUser: this.chooseUser,
-                    chosenUser: this.users[this.state.userId]
-                }}
-            >
-                {this.props.children}
-            </Provider>
-        );
-    }
+                // users:users,
+                // userId: userId,
+                // chooseUser: chooseUser,
+                chosenUser: chosenUser,
+                updateUser: updateUser
+            }}
+        >
+            {props.children}
+        </Provider>
+    );
 }
 
 export { Consumer, ConfigProvider }

@@ -1,6 +1,7 @@
 const express = require('express'); // brings in the package
 const connectDB = require('./config/db');   //brings in database connection code
 const path = require('path');
+const cors = require('cors');
 
 const app = express();  //initialize app variable
 
@@ -8,6 +9,7 @@ connectDB();    // Connect Database
 
 //Middleware
 app.use(express.json({ extended:false }));    // parse json objects in requests - this is the middleware formerly known as body-parser
+app.use(cors());
 
 //Routing
 app.get('/', (req, res) => res.send('API Running')); // When the server receives a GET request from a url ending with /, send a response with data content 'API Running'

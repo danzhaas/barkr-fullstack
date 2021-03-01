@@ -68,6 +68,9 @@ function SpeakFormComponent({ context: { chosenDog } }) {
     }
 
     function updateCommand () {
+        // if the command is an edit to an existing command
+        // (we can tell because the formData.id does not match id for any of the )
+        // if ()
         const newCommand = {...formData};
         const commandUpdate = [...updatedCommandsList, newCommand];
         updateCommands(

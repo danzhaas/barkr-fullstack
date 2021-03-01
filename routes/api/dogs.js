@@ -36,6 +36,16 @@ router.get('/edit/:id', auth, async (req, res) => { // note auth middleware and 
 // @route   GET api/dogs/  
 // @desc    Get all dogs
 // @access  Public
+router.get('/', async (req, res) => { // note auth middleware and async because we're making a call to the database
+    try {
+        const dogs = await Dog.find();
+        res.status(200).json({ dogs });
+        
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route   GET api/dogs/:id
 // @desc    Get specific dog by id

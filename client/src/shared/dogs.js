@@ -175,7 +175,7 @@ export const DOGS = [
         "owner": "Dan Haas",
         "siblings": []
     },
-
+    
 
     {
         "id":1,

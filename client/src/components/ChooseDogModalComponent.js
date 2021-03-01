@@ -1,22 +1,19 @@
-import React from 'react';
-import { Modal, ModalHeader, ModalBody, ButtonGroup } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal, ModalHeader, ModalBody, ButtonGroup, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { DOGS } from '../shared/dogs'
+import axios from 'axios';
+import url from '../db';
+// import { getDogs } from '../actions/dogs';
 
-export function DogChooserModal(props) {
+export function DogChooserModal({ modal, toggleModal, loadedDogs }) {
     
-    const dogs=DOGS;
-    const modal=props.modal;
-    const toggleModal = props.toggleModal;
-    const chooseDog=props.chooseDog;
-
-    const dogList=dogs.map(dog => {
+    const dogList=loadedDogs.map(dog => {
         return(
             <div key={dog.id}>
-                <Link className="d-flex flex-row" onClick={() => {chooseDog(dog.id); toggleModal()}} to={`/meet/${dog.id}`} >
+                {/* <Link className="d-flex flex-row" onClick={() => {chooseDog(dog.id); toggleModal()}} to={`/meet/${dog.id}`} >
                     <img className="border-1 border-primary rounded-circle" src={dog.pic.filter(pic => pic.type==="thumbnail")[0].img} alt={dog.name + " thumbnail"} />
                     <h1 className="my-auto ml-2">{dog.name}</h1>
-                </Link>
+                </Link> */}
             </div>
         )
     })
@@ -28,7 +25,11 @@ export function DogChooserModal(props) {
             </ModalHeader>
             <ModalBody>
                 <ButtonGroup vertical>
-                    {dogList}
+                    { loadedDogs.length===0 ? 
+                        <Spinner />
+                    :
+                        {dogList}
+                    }
                 </ButtonGroup>
             </ModalBody>
         </Modal> 
