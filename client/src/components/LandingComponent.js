@@ -16,7 +16,7 @@ function Landing () {
         try {
             const res = await axios.get( `${url}/api/dogs/` );
             const dogsArray = res.data.dogs;
-            getDogs({dogsArray});
+            getDogs(dogsArray);
             // console.log(dogsArray);
         } catch (err) {
             const errors = err.response;    // errors from the data in the response declared errors
