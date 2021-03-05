@@ -1,16 +1,37 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardText, CardBody, CardImg, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-// import Header from './HeaderComponent';
+import axios from 'axios';
 import MeetHeader from './MeetHeaderComponent';
 import Footer from './FooterComponent';
 import { Consumer } from "./configContext";
+import { getDog } from "../actions/dogs";
 
 
-function DogId (props) {
+function DogId ({ chosenDog, updateDog }) {
 
-    const chosenDog=props.chosenDog;
-    const chooseDog=props.chooseDog;
+    const {
+        id,
+        aName,
+        bio,
+        sex,
+        breeds,
+        yearBorn,
+        from,
+        pic
+    } = chosenDog;
+    // async function getDog({dogId}) {
+    //     try {
+    //         const res = await axios.get( `/api/dogs/${dogId}` );
+    //         return res.data;
+    //     } catch (err) {
+    //         const errors = err.response.data.errors;    // errors from the data in the response declared errors
+    
+    //         if(errors) {    // if there are errors 
+    //             errors.forEach(error => alert(error.msg))    // for eac
+    //         }
+    //     }
+    // } 
 
     const renderSiblings = (data) => {
         if (typeof data === "string") {
@@ -21,7 +42,7 @@ function DogId (props) {
                 // return <a className="text-primary" onClick={() => chooseDog(sibling.id)} href="#">
                 //     <p>&nbsp;{sibling.name}</p>
                 // </a>
-                return <Button className="text-primary bg-light btn p-1 mx-1" onClick={() => chooseDog(sibling.id)}>
+                return <Button className="text-primary bg-light btn p-1 mx-1" onClick={() => getDog(sibling.id)}>
                 <p className="m-0 font-weight-bold">{sibling.name}</p>
                 </Button>
             }
@@ -92,128 +113,35 @@ function DogId (props) {
     )
 } 
 
-// function HomeNavCol(props) {
+
+
+function DogHome () {
+
+    // const [loadedDogs, getDogs] = useState([]);
+
+    useEffect(() => {
+        loadDogs(getDogs);
+    }, [])
     
-//     const chosenDog=props.chosenDog;
-//     const toggle = props.toggle;
-
-//     return(
-//         <div id="home-nav-col" className="d-flex flex-column h-100 p-1" >
-//             <Link to="/talk">
-//                 <Button className="nav-link d-flex flex-row justify-content-center home-nav-button bg-warning" >
-//                     <i className="nav-icon fa fa-comment fa-2x"></i>
-//                     <h2>&nbsp;Talk to {chosenDog.name}</h2>
-//                 </Button>
-//             </Link>
-//             <Link to="/adventure">
-//                 <Button className="nav-link d-flex flex-row justify-content-center home-nav-button bg-warning" >
-//                     <i className="nav-icon fa fa-tree fa-2x align-self-center"></i>
-//                     <h2>&nbsp;Let's Adventure</h2>
-//                 </Button>
-//             </Link>
-//             <Link to="/care">
-//                 <Button className="nav-link d-flex flex-row justify-content-center home-nav-button bg-warning" >
-//                     <i className="nav-icon fa fa-heart fa-2x"></i>
-//                     <h2>&nbsp;Care for {chosenDog.name}</h2>
-//                 </Button>
-//             </Link>
-//             <div className="py-3 home-nav-button">
-//                 <h3 className="text-danger">Share {chosenDog.name}</h3>
-                // <div id="social-media" className="d-flex flex-row justify-content-around align-items-center">
-                //     <Link to="instagram.com">
-                //         <i className="fa fa-instagram fa-3x"></i>
-                //     </Link>
-                //     <Link to="facebook.com">
-                //         <i className="fa fa-facebook fa-3x"></i>
-                //     </Link>
-                //     <Link to="twitter.com">
-                //         <i className="fa fa-twitter fa-3x"></i>
-                //     </Link>
-                //     <Link to="youtube.com">
-                //         <i className="fa fa-youtube fa-3x"></i>
-                //     </Link>
-                // </div>
-//             </div>
-//             <Button className="bg-danger home-nav-button" onClick={toggle}>
-//                 <h2>Emergency Contacts</h2>
-//             </Button>
-//         </div>
-//     )
-// }
-
-
-// function EmergencyContactsModal (props) {
-//     const chosenDog=props.chosenDog;
-//     const modal=props.modal;
-//     const toggle = props.toggle;
-
-//     const renderContacts=chosenDog.contacts.map(entry => {
-//         return(
-//             <div key={entry.id}>
-//                 <Card >
-//                     <CardHeader>{entry.tabName}</CardHeader>
-//                     <CardBody>
-//                         <CardText>
-//                             {entry.tabContent}
-//                         </CardText>
-//                     </CardBody>
-//                 </Card>
-//             </div>
-//         )
-//     })
-
-//     return(
-//         <Modal isOpen={modal} toggle={toggle} >
-//             <ModalHeader toggle={toggle} className="bg-danger">Emergency Contacts</ModalHeader>
-//             <ModalBody >
-//                 {renderContacts}
-//             </ModalBody>
-//         </Modal>
-//     )
-// }
-
-
-class DogHome extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state= {
-    //         modal: false
-    //     };
-    //     this.toggle = this.toggle.bind(this);
-    // }
-
-    // toggle() { 
-    //     this.setState({modal: !this.state.modal}) 
-    // };
-
-    render() {
-
-        // const modal=this.state.modal;
-    
-        return(            
-            <Consumer>
-                {context => {
-                    return(
-                        <div className="h-100">
-                            <MeetHeader pageName="Meet" dogName={context.chosenDog.name} chooseDog={context.chooseDog} />         
-                            <div className="container h-100">                    
-                                <div className="row h-100">                      
-                                    <div className="col-12 mh-100 p-0 p-md-1 d-flex flex-row flex-wrap overflow-auto">
-                                        <DogId chosenDog={context.chosenDog} dogs={context.dogs} chooseDog={context.chooseDog} />
-                                    </div>
-                                    {/* <div className="col-12 d-md-block col-md-4 p-0">
-                                        <HomeNavCol chosenDog={context.chosenDog} toggle={this.toggle} />
-                                        <EmergencyContactsModal chosenDog={context.chosenDog} modal={modal} toggle={this.toggle} />
-                                    </div> */}
+    return(            
+        <Consumer>
+            {context => {
+                return(
+                    <div className="h-100">
+                        <MeetHeader pageName="Meet" dogName={context.chosenDog.name} chooseDog={context.chooseDog} />         
+                        <div className="container h-100">                    
+                            <div className="row h-100">                      
+                                <div className="col-12 mh-100 p-0 p-md-1 d-flex flex-row flex-wrap overflow-auto">
+                                    <DogId chosenDog={context.chosenDog} updateDog={context.updateDog} />
                                 </div>
                             </div>
-                            <Footer />   
                         </div>
-                    )
-                }}
-            </Consumer>
-        )
-    }
+                        <Footer />   
+                    </div>
+                )
+            }}
+        </Consumer>
+    )
 }
 
 export default DogHome;

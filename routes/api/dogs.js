@@ -50,6 +50,15 @@ router.get('/', async (req, res) => { // note auth middleware and async because 
 // @route   GET api/dogs/:id
 // @desc    Get specific dog by id
 // @access  Public
+router.get('/:id', async (req, res) => { // note auth middleware and async because we're making a call to the database
+    try {
+        const dog = await Dog.findById(req.params.id)  // jwt authorization happens here: the findById method calls req.user we declared in the auth middleware
+        res.json(dog); // response inludes the object returned by user document query
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 // @route   GET api/dogs/:name
 // @desc    Get specific dog by name
